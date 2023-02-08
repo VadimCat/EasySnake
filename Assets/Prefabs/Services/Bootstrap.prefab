@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6636be04d75829b45baf40159ab92f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snakePartViewPrefab: {fileID: -4561603565635768934, guid: eda980a4fc572cf418bbb39d352a4ca7, type: 3}
+  foodViewPrefab: {fileID: -1257995457739661040, guid: c510dcf5c28392340a12edcd439398fa, type: 3}
   screenNavigator: {fileID: 907379513472099776}
   backgroundService: {fileID: 943192557019172057}
   updateService: {fileID: 907379513036217410}

@@ -42,7 +42,7 @@ namespace Presenters.States
         private void ClickNext()
         {
             audioService.PlaySfxAsync(AudioClipName.ButtonFX);
-            var levelData = levelsLoopProgress.GetNextLevelData();
+            // var levelData = levelsLoopProgress.GetNextLevelData();
             stateMachine.Enter<LoadLevelState, LoadLevelStatePayload>(new LoadLevelStatePayload(1f));
         }
 

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Models
 {
-    public class Level : LevelBase, IUpdatable
+    public class Level : LevelBase, IFixedUpdatable
     {
         private readonly UpdateService _updateService;
         public readonly Vector2Int Size;
@@ -66,7 +66,7 @@ namespace Models
             _updateService.Remove(this);
         }
 
-        public void OnUpdate()
+        public void OnFixedUpdate()
         {
             HandleInput();
             movement += Time.deltaTime * _speed;

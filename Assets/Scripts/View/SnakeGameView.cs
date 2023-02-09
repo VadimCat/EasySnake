@@ -6,17 +6,14 @@ namespace Views
 {
     public class SnakeGameView : MonoBehaviour
     {
-        [SerializeField] private Gradient gradient;
-        [SerializeField] private LineSnakeView lineSnakeView;
-        [SerializeField] private TrailSnakeView trailSnakeView;
-
+        [SerializeField] private SpriteSnakeViewConfig snakeViewConfig;
+        
         private SpritesSnakeView _spriteSpritesSnakeView;
         private FoodContainerView _foodContainerView;
         
         private Context _context;
 
         public ISnakeView SpritesSnakeView => _spriteSpritesSnakeView;
-        // public ISnakeView SnakeView => _snakeSnakeView;
         public FoodContainerView FoodContainerView => _foodContainerView;
 
         public void Initialize(Pool<SnakePartView> partsPool, Pool<FoodView> foodPool, Vector2Int initialSize)
@@ -24,10 +21,7 @@ namespace Views
             PositionProvider positionProvider = new PositionProvider(initialSize);
             _foodContainerView = new FoodContainerView(foodPool, positionProvider);
             
-            // trailSnakeView.SetDependencies(positionProvider);
-            // lineSnakeView.SetDependencies(positionProvider, 5);
-            
-            _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, gradient);
+            _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, snakeViewConfig);
         }
         
         private void Awake()

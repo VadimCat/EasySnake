@@ -8,7 +8,7 @@ namespace Views
     {
         private readonly Pool<FoodView> _foodPool;
         private readonly PositionProvider _positionProvider;
-        private readonly Dictionary<Vector2Int, FoodView> _foodViews = new();
+        private Dictionary<Vector2Int, FoodView> _foodViews = new();
 
         public FoodContainerView(Pool<FoodView> foodPool, PositionProvider positionProvider)
         {
@@ -31,10 +31,12 @@ namespace Views
 
         public void Destroy()
         {
-            foreach (var key in _foodViews.Keys)
+            foreach (var foodView in _foodViews.Values)
             {
-                DeSpawnFood(key);
+                _foodPool.DeSpawn(foodView);
             }
+
+            _foodViews = null;
         }
     }
 }

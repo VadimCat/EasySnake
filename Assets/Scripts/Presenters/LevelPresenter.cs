@@ -14,7 +14,7 @@ namespace Presenters
         private FoodContainerView _foodContainerView;
         private ISnakeView _snakeView;
         
-        private readonly SnakeGameView _snakeGameView;
+        private SnakeGameView _snakeGameView;
         private readonly Pool<SnakePartView> _snakePartsPool;
         private readonly Pool<FoodView> _foodPartsPool;
 
@@ -57,6 +57,18 @@ namespace Presenters
         private void Complete()
         {
             LevelCompleted?.Invoke();
+            
+            
+            Model.FoodSpawn -= _foodContainerView.SpawnFood;
+            Model.FoodDeSpawn -= _foodContainerView.DeSpawnFood;
+
+            Model.SnakeMove -= _snakeView.Move;
+
+            Model.Complete -= Complete;
+
+            _snakeGameView = null;
+            _foodContainerView = null;
+            _snakeView = null;
         }
     }
 }

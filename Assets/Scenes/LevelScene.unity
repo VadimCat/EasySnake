@@ -380,8 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7db063c02c14c4e9383d967c3f090e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineSnakeView: {fileID: 0}
-  trailSnakeView: {fileID: 0}
+  snakeViewConfig: {fileID: 11400000, guid: 07efdad55bb8ea44cb9a75c4e03da744, type: 2}
 --- !u!1 &1117408316625540
 GameObject:
   m_ObjectHideFlags: 0

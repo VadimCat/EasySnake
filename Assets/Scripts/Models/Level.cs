@@ -18,6 +18,7 @@ namespace Models
         private int _score;
 
         private Vector2Int _direction = Vector2Int.right;
+        private Vector2Int _nextDirection = Vector2Int.right;
 
         private float movement = 0;
 
@@ -68,8 +69,8 @@ namespace Models
 
         public void OnFixedUpdate()
         {
-            HandleInput();
             movement += Time.deltaTime * _speed;
+            HandleInput();
             while (movement >= 1)
             {
                 movement--;
@@ -79,21 +80,25 @@ namespace Models
 
         private void HandleInput()
         {
-            if (Input.GetAxis("Horizontal") > .2f)
+            if (Input.GetAxis("Horizontal") > .2f && _direction != Vector2Int.left)
             {
-                _direction = Vector2Int.right;
+                _nextDirection = Vector2Int.right;
+                // movement = 1;
             }
-            else if (Input.GetAxis("Horizontal") < -.2f)
+            else if (Input.GetAxis("Horizontal") < -.2f && _direction != Vector2Int.right)
             {
-                _direction = Vector2Int.left;
+                _nextDirection = Vector2Int.left;
+                // movement = 1;
             }
-            else if (Input.GetAxis("Vertical") > .2f)
+            else if (Input.GetAxis("Vertical") > .2f && _direction != Vector2Int.down)
             {
-                _direction = Vector2Int.up;
+                _nextDirection = Vector2Int.up;
+                // movement = 1;
             }
-            else if (Input.GetAxis("Vertical") < -.2f)
+            else if (Input.GetAxis("Vertical") < -.2f && _direction != Vector2Int.up)
             {
-                _direction = Vector2Int.down;
+                _nextDirection = Vector2Int.down;
+                // movement = 1;
             }
         }
 
@@ -106,7 +111,8 @@ namespace Models
                 snake[i] = snake[i - 1];
             }
 
-            snake[0] += _direction;
+            snake[0] += _nextDirection;
+            _direction = _nextDirection;
             if (snake[0].x == Size.x)
             {
                 // snake[0] = new Vector2Int(0, snake[0].y);
@@ -132,13 +138,16 @@ namespace Models
                 return;
             }
 
+            
+            SnakeMove?.Invoke(snake.AsReadOnly());
+            
             var collisionIndex = snake.FindLastIndex(el => el == snake[0]);
             if (collisionIndex != -1 && collisionIndex != 0)
             {
                 OnComplete();
                 return;
             }
-
+            
             if (food.Contains(snake[0]))
             {
                 snake.Add(tale);
@@ -146,8 +155,6 @@ namespace Models
                 FoodDeSpawn?.Invoke(snake[0]);
                 SpawnFood();
             }
-
-            SnakeMove?.Invoke(snake.AsReadOnly());
         }
 
         private void SpawnFood()

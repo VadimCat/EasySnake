@@ -85,23 +85,39 @@ namespace Models
 
         private void HandleInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 var headPos = snake[0];
                 var foodPos = food[0];
+                
                 var foodDirection = foodPos - headPos;
-
-                if (foodDirection.x == 0 || foodDirection.y == 0)
+                foodDirection.Clamp(min, max);
+                
+                if ((foodDirection.x == 0 || foodDirection.y == 0) && CheckFreePathBetween(headPos, foodPos))
                 {
-                    foodDirection.Clamp(min, max);
-                    if (CheckFreePathBetween(headPos, foodPos))
                         ChangeDirection(foodDirection);
                 }
                 else
                 {
                     var path = TryFindPathWave(headPos, foodPos);
                     if (path.Count > 0)
+                    {
                         ChangeDirection(path[0] - headPos);
+                    }
+                    else
+                    {
+                        int attempts = 2;
+                        while (path.Count == 0 && attempts != snake.Count)
+                        {
+                            path = TryFindPathWave(headPos, snake[attempts]);
+                            attempts++;
+                        }
+                    
+                        if (path.Count > 0)
+                        {
+                            ChangeDirection(path[0] - headPos);
+                        }
+                    }
                 }
             }
 
@@ -126,13 +142,18 @@ namespace Models
 
         private List<Vector2Int> TryFindPathWave(Vector2Int start, Vector2Int target)
         {
-            int[,] pathGrid = new int[Size.x, Size.y];
-            foreach (var parts in snake)
+            int[][] pathGrid = new int[Size.x][];
+            for (int index = 0; index < Size.x; index++)
             {
-                pathGrid[parts.x, parts.y] = int.MaxValue;
+                pathGrid[index] = new int[Size.y];
             }
 
-            pathGrid[start.x, start.y] = 1;
+            foreach (var parts in snake)
+            {
+                pathGrid[parts.x][parts.y] = int.MaxValue;
+            }
+
+            pathGrid[start.x][start.y] = 1;
             List<List<Vector2Int>> poses = new List<List<Vector2Int>>();
 
             Vector2Int checkPoint = new Vector2Int(-1, -1);
@@ -169,9 +190,9 @@ namespace Models
                         if (checkPoint == target)
                             break;
 
-                        if (pathGrid[checkPoint.x, checkPoint.y] == 0)
+                        if (pathGrid[checkPoint.x][checkPoint.y] == 0)
                         {
-                            pathGrid[checkPoint.x, checkPoint.y] = weight;
+                            pathGrid[checkPoint.x][checkPoint.y] = weight;
                             newPoints.Add(checkPoint);
                         }
                     }
@@ -215,7 +236,7 @@ namespace Models
                             continue;
                         }
 
-                        if (pathGrid[prevPoint.x, prevPoint.y] == weight)
+                        if (pathGrid[prevPoint.x][prevPoint.y] == weight)
                         {
                             newPoints.Add(prevPoint);
                         }

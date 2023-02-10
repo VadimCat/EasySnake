@@ -13,18 +13,19 @@ namespace Models
     public class Level : LevelBase, IFixedUpdatable
     {
         private readonly UpdateService _updateService;
-        public readonly Vector2Int Size;
         private readonly float _speed;
         private int _score;
-
         private Vector2Int _direction = Vector2Int.right;
         private Vector2Int _nextDirection = Vector2Int.right;
-
         private float movement = 0;
-
         private readonly HashSet<Vector2Int> fieldPoints;
-
         private List<Vector2Int> snake = new() { new(2, 5), new(1, 5), new(0, 5) };
+
+        private Vector2Int min = new Vector2Int(-1, -1);
+        private Vector2Int max = new Vector2Int(1, 1);
+
+        public readonly Vector2Int Size;
+
         public IReadOnlyList<Vector2Int> Snake => snake.AsReadOnly();
         public event Action<IReadOnlyList<Vector2Int>> SnakeMove;
 
@@ -32,10 +33,13 @@ namespace Models
         private List<Vector2Int> food = new();
         public IReadOnlyList<Vector2Int> Food => food.AsReadOnly();
 
+        public float speedRate = 1;
+
         public event Action<Vector2Int> FoodSpawn;
         public event Action<Vector2Int> FoodDeSpawn;
 
-        public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics, LevelData levelData,
+        public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
+            LevelData levelData,
             ISaveDataContainer saveDataContainer) : base(analytics, levelData, saveDataContainer)
         {
             _updateService = updateService;
@@ -63,43 +67,193 @@ namespace Models
         protected override void OnComplete()
         {
             base.OnComplete();
-            
+
             _updateService.Remove(this);
         }
 
         public void OnFixedUpdate()
         {
-            movement += Time.deltaTime * _speed;
+            movement += Time.deltaTime * _speed * speedRate;
             HandleInput();
             while (movement >= 1)
             {
                 movement--;
+                speedRate = 1;
                 MoveSnake();
             }
         }
 
         private void HandleInput()
         {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                var headPos = snake[0];
+                var foodPos = food[0];
+                var foodDirection = foodPos - headPos;
+
+                if (foodDirection.x == 0 || foodDirection.y == 0)
+                {
+                    foodDirection.Clamp(min, max);
+                    if (CheckFreePathBetween(headPos, foodPos))
+                        ChangeDirection(foodDirection);
+                }
+                else
+                {
+                    var path = TryFindPathWave(headPos, foodPos);
+                    if (path.Count > 0)
+                        ChangeDirection(path[0] - headPos);
+                }
+            }
+
+
             if (Input.GetAxis("Horizontal") > .2f && _direction != Vector2Int.left)
             {
-                _nextDirection = Vector2Int.right;
-                // movement = 1;
+                ChangeDirection(Vector2Int.right);
             }
             else if (Input.GetAxis("Horizontal") < -.2f && _direction != Vector2Int.right)
             {
-                _nextDirection = Vector2Int.left;
-                // movement = 1;
+                ChangeDirection(Vector2Int.left);
             }
             else if (Input.GetAxis("Vertical") > .2f && _direction != Vector2Int.down)
             {
-                _nextDirection = Vector2Int.up;
-                // movement = 1;
+                ChangeDirection(Vector2Int.up);
             }
             else if (Input.GetAxis("Vertical") < -.2f && _direction != Vector2Int.up)
             {
-                _nextDirection = Vector2Int.down;
-                // movement = 1;
+                ChangeDirection(Vector2Int.down);
             }
+        }
+
+        private List<Vector2Int> TryFindPathWave(Vector2Int start, Vector2Int target)
+        {
+            int[,] pathGrid = new int[Size.x, Size.y];
+            foreach (var parts in snake)
+            {
+                pathGrid[parts.x, parts.y] = int.MaxValue;
+            }
+
+            pathGrid[start.x, start.y] = 1;
+            List<List<Vector2Int>> poses = new List<List<Vector2Int>>();
+
+            Vector2Int checkPoint = new Vector2Int(-1, -1);
+
+            poses.Add(new List<Vector2Int>() { start });
+
+            int weight = 2;
+            while (checkPoint != target && poses[^1].Count != 0)
+            {
+                var lastPointsList = poses[^1];
+                var newPoints = new List<Vector2Int>();
+                poses.Add(newPoints);
+
+                foreach (var t in lastPointsList)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector2Int direction = i switch
+                        {
+                            0 => Vector2Int.down,
+                            1 => Vector2Int.up,
+                            2 => Vector2Int.left,
+                            3 => Vector2Int.right,
+                            _ => throw new ArgumentOutOfRangeException()
+                        };
+
+                        checkPoint = t + direction;
+
+                        if (checkPoint.x < 0 || checkPoint.x >= Size.x || checkPoint.y < 0 || checkPoint.y >= Size.y)
+                        {
+                            continue;
+                        }
+
+                        if (checkPoint == target)
+                            break;
+
+                        if (pathGrid[checkPoint.x, checkPoint.y] == 0)
+                        {
+                            pathGrid[checkPoint.x, checkPoint.y] = weight;
+                            newPoints.Add(checkPoint);
+                        }
+                    }
+
+                    if (checkPoint == target)
+                        break;
+                }
+
+                if (checkPoint != target)
+                    weight++;
+            }
+
+
+            List<Vector2Int> endpoints = new List<Vector2Int>();
+            endpoints.Add(checkPoint);
+
+            while (weight != 2)
+            {
+                weight--;
+
+                var newPoints = new List<Vector2Int>();
+
+                foreach (var point in endpoints)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector2Int direction = i switch
+                        {
+                            0 => Vector2Int.down,
+                            1 => Vector2Int.up,
+                            2 => Vector2Int.left,
+                            3 => Vector2Int.right,
+                            _ => throw new ArgumentOutOfRangeException()
+                        };
+
+                        var prevPoint = point + direction;
+
+                        if (prevPoint.x < 0 || prevPoint.x >= Size.x || prevPoint.y < 0 || prevPoint.y >= Size.y ||
+                            newPoints.Contains(prevPoint) || newPoints.Contains(prevPoint))
+                        {
+                            continue;
+                        }
+
+                        if (pathGrid[prevPoint.x, prevPoint.y] == weight)
+                        {
+                            newPoints.Add(prevPoint);
+                        }
+                    }
+                }
+
+                endpoints = newPoints;
+            }
+
+            return endpoints;
+        }
+
+        private bool CheckFreePathBetween(Vector2Int p1, Vector2Int p2)
+        {
+            var direction = (p2 - p1);
+            direction.Clamp(min, max);
+            var i = p1 + direction;
+            while (i != p2)
+            {
+                if (snake.Contains(i))
+                {
+                    return false;
+                }
+
+                i += direction;
+            }
+
+            return true;
+        }
+
+        private void ChangeDirection(Vector2Int direction)
+        {
+            if (_direction == direction)
+            {
+                speedRate = 2;
+            }
+
+            _nextDirection = direction;
         }
 
         private void MoveSnake()
@@ -138,16 +292,16 @@ namespace Models
                 return;
             }
 
-            
+
             SnakeMove?.Invoke(snake.AsReadOnly());
-            
+
             var collisionIndex = snake.FindLastIndex(el => el == snake[0]);
             if (collisionIndex != -1 && collisionIndex != 0)
             {
                 OnComplete();
                 return;
             }
-            
+
             if (food.Contains(snake[0]))
             {
                 snake.Add(tale);

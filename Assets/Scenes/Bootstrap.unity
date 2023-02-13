@@ -198,6 +198,10 @@ PrefabInstance:
       propertyPath: screens.Array.data[1]
       value: 
       objectReference: {fileID: 2673282795225721937, guid: 0db53ec22eaa4b744aa54b0f275cee19, type: 3}
+    - target: {fileID: 907379513472099779, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 943192558441815296, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -212,6 +216,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 943192558441815299, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192558441815299, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 943192558441815299, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}

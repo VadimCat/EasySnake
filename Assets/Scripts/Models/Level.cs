@@ -109,10 +109,13 @@ namespace Models
                         int attempts = 2;
                         while (path.Count == 0 && attempts != snake.Count)
                         {
-                            path = TryFindPathWave(headPos, snake[attempts]);
-                            attempts++;
+                            if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[attempts]), 0))
+                            {
+                                path = TryFindPathWave(headPos, snake[attempts]);
+                                attempts++;
+                            }
                         }
-                    
+
                         if (path.Count > 0)
                         {
                             ChangeDirection(path[0] - headPos);

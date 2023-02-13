@@ -85,7 +85,7 @@ namespace Models
 
         private void HandleInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
             {
                 var headPos = snake[0];
                 var foodPos = food[0];

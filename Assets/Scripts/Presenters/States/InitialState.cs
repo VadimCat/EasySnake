@@ -39,7 +39,7 @@ namespace Presenters.States
             await screenNavigator.PushScreen<LoadingScreen>();
             await facebookTask;
 
-            float fakeLoadingTime = 0;
+            float fakeLoadingTime = 3;
 #if !UNITY_EDITOR
             fakeLoadingTime = 5;
 #endif

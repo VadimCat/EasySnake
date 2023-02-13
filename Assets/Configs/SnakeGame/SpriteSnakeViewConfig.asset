@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0269416665d4cef94aa359bcab3335c, type: 3}
   m_Name: SpriteSnakeViewConfig
   m_EditorClassIdentifier: 
-  maxPartScale: 0.2
+  maxPartScale: 0.15
   curve:
     serializedVersion: 2
     m_Curve:

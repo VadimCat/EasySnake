@@ -18,7 +18,7 @@ namespace Views
 
         public void Initialize(Pool<SnakePartView> partsPool, Pool<FoodView> foodPool, Vector2Int initialSize)
         {
-            PositionProvider positionProvider = new PositionProvider(initialSize);
+            PositionProvider positionProvider = new PositionProvider(initialSize, .16f);
             _foodContainerView = new FoodContainerView(foodPool, positionProvider);
             
             _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, snakeViewConfig);

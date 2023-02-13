@@ -194,6 +194,18 @@ PrefabInstance:
       propertyPath: screens.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 907379513472099776, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: screens.Array.data[1]
+      value: 
+      objectReference: {fileID: 2673282795225721937, guid: 0db53ec22eaa4b744aa54b0f275cee19, type: 3}
+    - target: {fileID: 943192558441815296, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192558441815298, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d8388a9fce62b148a22b78014b809a6, type: 3}
     - target: {fileID: 943192558441815299, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

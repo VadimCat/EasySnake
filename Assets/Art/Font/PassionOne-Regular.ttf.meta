@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9f079305b3962cd458c104f5ae69a684
+guid: c7dd43fd232501845ac63797851c5201
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Baloo
+  - Passion One
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

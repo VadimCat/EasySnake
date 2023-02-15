@@ -109,7 +109,7 @@ namespace Models
                         int attempts = 2;
                         while (path.Count == 0 && attempts != snake.Count)
                         {
-                            if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[attempts]), 0))
+                            if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[attempts]), 1))
                             {
                                 path = TryFindPathWave(headPos, snake[attempts]);
                                 attempts++;

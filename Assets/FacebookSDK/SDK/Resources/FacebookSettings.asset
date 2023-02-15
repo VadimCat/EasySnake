@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - 
+  - 4dc8305013756d540ff0d7e0f3231c1b
   appIds:
-  - 0
+  - 919285189103938
   appLabels:
-  - App Name
+  - SnakeMaster
   cookie: 1
   logging: 1
   status: 1

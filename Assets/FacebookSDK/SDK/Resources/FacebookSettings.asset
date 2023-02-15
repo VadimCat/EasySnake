@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - Easy.Snake
+  - 0
   appLabels:
-  - EasySnake
+  - App Name
   cookie: 1
   logging: 1
   status: 1

@@ -5,6 +5,7 @@ using Ji2.CommonCore;
 using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Models;
 using Ji2.Models.Analytics;
+using Ji2.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,6 +27,8 @@ namespace Models
 
         public readonly Vector2Int Size;
 
+        public readonly ReactiveProperty<GameState> State = new(GameState.Prepare);
+
         public IReadOnlyList<Vector2Int> Snake => snake.AsReadOnly();
         public event Action<IReadOnlyList<Vector2Int>> SnakeMove;
 
@@ -37,6 +40,7 @@ namespace Models
 
         public event Action<Vector2Int> FoodSpawn;
         public event Action<Vector2Int> FoodDeSpawn;
+        public event Action<int> ScoreUpdate;
 
         public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
             LevelData levelData,
@@ -59,11 +63,23 @@ namespace Models
             SpawnFood();
         }
 
-        public void Start()
+        public void Prepare()
         {
-            _updateService.Add(this);
+            SnakeMove?.Invoke(snake.AsReadOnly());
         }
 
+        private void Start()
+        {
+            _updateService.Add(this);
+            State.Value = GameState.Game;
+        }
+
+        private void Pause()
+        {
+            _updateService.Remove(this);
+            State.Value = GameState.Pause;
+        }
+        
         protected override void OnComplete()
         {
             base.OnComplete();
@@ -74,7 +90,6 @@ namespace Models
         public void OnFixedUpdate()
         {
             movement += Time.deltaTime * _speed * speedRate;
-            HandleInput();
             while (movement >= 1)
             {
                 movement--;
@@ -83,64 +98,61 @@ namespace Models
             }
         }
 
-        private void HandleInput()
+        private void TryChangeDirection()
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
+            var headPos = snake[0];
+            var foodPos = food[0];
+
+            var foodDirection = foodPos - headPos;
+            foodDirection.Clamp(min, max);
+
+            if ((foodDirection.x == 0 || foodDirection.y == 0) && CheckFreePathBetween(headPos, foodPos))
             {
-                var headPos = snake[0];
-                var foodPos = food[0];
-                
-                var foodDirection = foodPos - headPos;
-                foodDirection.Clamp(min, max);
-                
-                if ((foodDirection.x == 0 || foodDirection.y == 0) && CheckFreePathBetween(headPos, foodPos))
+                ChangeDirection(foodDirection);
+            }
+            else
+            {
+                var path = TryFindPathWave(headPos, foodPos);
+                if (path.Count > 0)
                 {
-                        ChangeDirection(foodDirection);
+                    ChangeDirection(path[0] - headPos);
                 }
                 else
                 {
-                    var path = TryFindPathWave(headPos, foodPos);
+                    int attempts = 2;
+                    while (path.Count == 0 && attempts != snake.Count)
+                    {
+                        if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[attempts]), 1))
+                        {
+                            path = TryFindPathWave(headPos, snake[attempts]);
+                            attempts++;
+                        }
+                    }
+
                     if (path.Count > 0)
                     {
                         ChangeDirection(path[0] - headPos);
                     }
-                    else
-                    {
-                        int attempts = 2;
-                        while (path.Count == 0 && attempts != snake.Count)
-                        {
-                            if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[attempts]), 1))
-                            {
-                                path = TryFindPathWave(headPos, snake[attempts]);
-                                attempts++;
-                            }
-                        }
-
-                        if (path.Count > 0)
-                        {
-                            ChangeDirection(path[0] - headPos);
-                        }
-                    }
                 }
             }
+        }
 
+        private bool CheckFreePathBetween(Vector2Int p1, Vector2Int p2)
+        {
+            var direction = (p2 - p1);
+            direction.Clamp(min, max);
+            var i = p1 + direction;
+            while (i != p2)
+            {
+                if (snake.Contains(i))
+                {
+                    return false;
+                }
 
-            if (Input.GetAxis("Horizontal") > .2f && _direction != Vector2Int.left)
-            {
-                ChangeDirection(Vector2Int.right);
+                i += direction;
             }
-            else if (Input.GetAxis("Horizontal") < -.2f && _direction != Vector2Int.right)
-            {
-                ChangeDirection(Vector2Int.left);
-            }
-            else if (Input.GetAxis("Vertical") > .2f && _direction != Vector2Int.down)
-            {
-                ChangeDirection(Vector2Int.up);
-            }
-            else if (Input.GetAxis("Vertical") < -.2f && _direction != Vector2Int.up)
-            {
-                ChangeDirection(Vector2Int.down);
-            }
+
+            return true;
         }
 
         private List<Vector2Int> TryFindPathWave(Vector2Int start, Vector2Int target)
@@ -252,24 +264,6 @@ namespace Models
             return endpoints;
         }
 
-        private bool CheckFreePathBetween(Vector2Int p1, Vector2Int p2)
-        {
-            var direction = (p2 - p1);
-            direction.Clamp(min, max);
-            var i = p1 + direction;
-            while (i != p2)
-            {
-                if (snake.Contains(i))
-                {
-                    return false;
-                }
-
-                i += direction;
-            }
-
-            return true;
-        }
-
         private void ChangeDirection(Vector2Int direction)
         {
             if (_direction == direction)
@@ -331,6 +325,8 @@ namespace Models
                 snake.Add(tale);
                 food.Remove(snake[0]);
                 FoodDeSpawn?.Invoke(snake[0]);
+                _score++;
+                ScoreUpdate?.Invoke(_score);
                 SpawnFood();
             }
         }
@@ -342,5 +338,60 @@ namespace Models
             food.Add(newPos);
             FoodSpawn?.Invoke(newPos);
         }
+
+        public void HandleFieldClick()
+        {
+            switch (State.Value)
+            {
+                case GameState.Prepare:
+                    Start();
+                    break;
+                case GameState.Game:
+                    TryChangeDirection();
+                    break;
+                case GameState.Pause:
+                    Start();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void HandlePauseClick()
+        {
+            switch (State.Value)
+            {
+                case GameState.Game:
+                    Pause();
+                    break;
+                case GameState.Prepare:
+                case GameState.Pause:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void HandlePlayClick()
+        {
+            switch (State.Value)
+            {
+                case GameState.Pause:
+                    break;
+                case GameState.Prepare:
+                case GameState.Game:
+                    Start();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+
+    public enum GameState
+    {
+        Prepare,
+        Game,
+        Pause
     }
 }

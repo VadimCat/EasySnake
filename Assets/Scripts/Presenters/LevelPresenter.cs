@@ -1,64 +1,108 @@
 using System;
 using Ji2Core.Core.Pools;
+using Ji2Core.Core.ScreenNavigation;
+using Ji2Core.Core.States;
 using Models;
 using Views;
+using Views.Screens;
 
 namespace Presenters
 {
     public class LevelPresenter
     {
         public Level Model { get; }
-        
+
         public event Action LevelCompleted;
 
         private FoodContainerView _foodContainerView;
         private ISnakeView _snakeView;
-        
+
         private SnakeGameView _snakeGameView;
         private readonly Pool<SnakePartView> _snakePartsPool;
         private readonly Pool<FoodView> _foodPartsPool;
+        private readonly ScreenNavigator _screenNavigator;
+
+        private GameScreen _gameScreen;
+        private StateMachine _screenStateMachine;
+        private PositionProvider _positionProvider;
 
         public LevelPresenter(Level level, SnakeGameView snakeGameView, Pool<SnakePartView> snakePartsPool,
-            Pool<FoodView> foodPartsPool)
+            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator)
         {
             Model = level;
             _snakeGameView = snakeGameView;
             _snakePartsPool = snakePartsPool;
             _foodPartsPool = foodPartsPool;
+            _screenNavigator = screenNavigator;
         }
 
         public void BuildLevel()
         {
-            _snakeGameView.Initialize(_snakePartsPool, _foodPartsPool, Model.Size);
+            _positionProvider = new PositionProvider(Model.Size, .16f);
+            _snakeGameView.Initialize(_snakePartsPool, _foodPartsPool, Model.Size,
+                _positionProvider);
 
             _foodContainerView = _snakeGameView.FoodContainerView;
             _snakeView = _snakeGameView.SpritesSnakeView;
-            
+
             foreach (var food in Model.Food)
             {
                 _snakeGameView.FoodContainerView.SpawnFood(food);
             }
-            
+
             _snakeGameView.SpritesSnakeView.Move(Model.Snake);
         }
 
-        public void StartLevel()
+        public void PrepareStart()
         {
+            _gameScreen = (GameScreen)_screenNavigator.CurrentScreen;
+            _screenStateMachine = _gameScreen.GetStateMachine();
             Model.FoodSpawn += _foodContainerView.SpawnFood;
             Model.FoodDeSpawn += _foodContainerView.DeSpawnFood;
-
             Model.SnakeMove += _snakeView.Move;
-
             Model.Complete += Complete;
-            
-            Model.Start();
+            Model.ScoreUpdate += HandleScoreUpdate;
+
+            Model.State.OnValueChanged += HandleStateChanged;
+
+            _gameScreen.FieldClick += Model.HandleFieldClick;
+            _gameScreen.PauseClick += Model.HandlePauseClick;
+            _gameScreen.PlayClick += Model.HandlePlayClick;
+
+
+            Model.Prepare();
+            _screenStateMachine.Enter<PrepareGameScreenState>();
+        }
+
+        private void HandleScoreUpdate(int score)
+        {
+            var pos = _positionProvider.GetPoint(Model.Snake[0]);
+            _gameScreen.ShowPointsTip(pos);
+            _gameScreen.SetScore(score);
+        }
+
+        private void HandleStateChanged(GameState newState, GameState prevState)
+        {
+            switch (newState)
+            {
+                case GameState.Prepare:
+                    _screenStateMachine.Enter<PrepareGameScreenState>();
+                    break;
+                case GameState.Game:
+                    _screenStateMachine.Enter<PlayingGameScreenState>();
+                    break;
+                case GameState.Pause:
+                    _screenStateMachine.Enter<PauseGameScreenState>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+            }
         }
 
         private void Complete()
         {
             LevelCompleted?.Invoke();
-            
-            
+
             Model.FoodSpawn -= _foodContainerView.SpawnFood;
             Model.FoodDeSpawn -= _foodContainerView.DeSpawnFood;
 

@@ -67,7 +67,7 @@ namespace Presenters.States
 
             LevelPresenter levelPresenter =
                 new LevelPresenter(level, snakeView, context.GetService<Pool<SnakePartView>>(),
-                    context.GetService<Pool<FoodView>>());
+                    context.GetService<Pool<FoodView>>(), context.ScreenNavigator);
 
             levelPresenter.BuildLevel();
             

@@ -3,8 +3,10 @@ using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
 using Models;
+using UnityEngine;
 using Views;
 using Views.Screens;
+using Random = UnityEngine.Random;
 
 namespace Presenters
 {
@@ -76,7 +78,9 @@ namespace Presenters
 
         private void HandleScoreUpdate(int score)
         {
-            var pos = _positionProvider.GetPoint(Model.Snake[0]);
+            var pos = _positionProvider.GetPoint(Model.Snake[0]) +
+                      new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+            
             _gameScreen.ShowPointsTip(pos);
             _gameScreen.SetScore(score);
         }

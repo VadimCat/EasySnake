@@ -12,13 +12,11 @@ namespace Views.Screens
 
         public void Spawn()
         {
-            Debug.LogError("spawn");
             gameObject.SetActive(true);
         }
 
         public void DeSpawn()
         {
-            Debug.LogError("despawn");
             gameObject.SetActive(false);
         }
     }

@@ -19,6 +19,8 @@ namespace Views
 
         private int PointsPerSegment => _viewConfig.PointPerSegment;
 
+        private List<Sequence> _sequences;
+
         public SpritesSnakeView(Pool<SnakePartView> pool, PositionProvider positionProvider,
             SpriteSnakeViewConfig viewConfig)
         {
@@ -30,21 +32,29 @@ namespace Views
                 viewConfig.PointPerSegment - 1);
         }
 
-
-        private Vector3 _headPos = new();
         private readonly LinkedList<SnakePartView> _linkedParts = new();
 
         public void Move(IReadOnlyList<Vector2Int> positions)
         {
+            if (_sequences != null)
+            {
+                foreach (var seq in _sequences)
+                {
+                    seq.Complete();
+                }
+            }
+
             var renderPositionsCount = (positions.Count - 1) * PointsPerSegment + positions.Count;
-        
+
+            _sequences = new List<Sequence>(renderPositionsCount);
+
             var keyPositions = new Vector3[positions.Count];
-            
+
             for (int i = 0; i < positions.Count; i++)
             {
                 keyPositions[i] = _positionProvider.GetPoint(positions[i]);
             }
-        
+
             var diff = renderPositionsCount - _parts.Count;
             if (diff > 0)
             {
@@ -57,50 +67,54 @@ namespace Views
                         .SetInnerSpriteScale(_viewConfig.MaxPartScale);
                 }
             }
-        
+
             float moveTime = .2f;
-        
+
             var lastPoint = positions.Count - 1;
             for (var i = 0; i < lastPoint; i++)
             {
                 var keyPoint = keyPositions[i];
                 var midPoint = keyPositions[i + 1];
-        
+
                 for (int j = 0; j < (PointsPerSegment + 1); j++)
                 {
                     var currentPartIndex = i * (PointsPerSegment + 1) + j;
-        
+
                     SetParametersByPos(currentPartIndex);
-        
+
                     var currentPart = _parts[currentPartIndex];
                     var finalPoint = midPoint + (PointsPerSegment + 1 - j) * (keyPoint - midPoint) /
                         (PointsPerSegment + 1);
-        
+
                     var dist1 = Vector3.Distance(midPoint, currentPart.transform.position);
                     var dist2 = Vector3.Distance(finalPoint, midPoint);
-        
+
                     var t1 = moveTime * dist1 / (dist1 + dist2);
                     var t2 = moveTime * dist2 / (dist1 + dist2);
-        
+
                     var seq = DOTween.Sequence();
-        
+
                     seq.Append(currentPart.transform.DOMove(midPoint, t1)
                         .SetEase(Ease.Linear));
-        
+
                     seq.Append(currentPart.transform.DOMove(finalPoint, t2)
                         .SetEase(Ease.Linear));
+
+                    _sequences.Add(seq);
                 }
             }
-        
+
             var lastPart = _parts.Last();
             lastPart.SetColor(colorGradient.Evaluate(1));
-        
+
             var scale = Vector3.one * ScaleCurve.Evaluate(1);
             lastPart.transform.localScale = scale;
-        
-            lastPart.transform.DOMove(keyPositions.Last(), moveTime)
-                .SetEase(Ease.Linear);
-        
+
+            var lastSeq =  DOTween.Sequence();
+            lastSeq.Append(lastPart.transform.DOMove(keyPositions.Last(), moveTime)
+                .SetEase(Ease.Linear));
+            
+            _sequences.Add(lastSeq);
         }
 
         private void SetParametersByPos(int currentPartIndex)

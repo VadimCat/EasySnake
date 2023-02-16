@@ -79,7 +79,7 @@ namespace Models
             _updateService.Remove(this);
             State.Value = GameState.Pause;
         }
-        
+
         protected override void OnComplete()
         {
             base.OnComplete();
@@ -113,26 +113,20 @@ namespace Models
             else
             {
                 var path = TryFindPathWave(headPos, foodPos);
+                if (path.Count == 0)
+                {
+                    for (int i = 2; i < snake.Count; i++)
+                    {
+                        if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[i]), 1))
+                        {
+                            path = TryFindPathWave(headPos, snake[i]);
+                        }
+                    }
+                }
+
                 if (path.Count > 0)
                 {
                     ChangeDirection(path[0] - headPos);
-                }
-                else
-                {
-                    int attempts = 2;
-                    while (path.Count == 0 && attempts != snake.Count)
-                    {
-                        if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[attempts]), 1))
-                        {
-                            path = TryFindPathWave(headPos, snake[attempts]);
-                            attempts++;
-                        }
-                    }
-
-                    if (path.Count > 0)
-                    {
-                        ChangeDirection(path[0] - headPos);
-                    }
                 }
             }
         }
@@ -287,25 +281,21 @@ namespace Models
             _direction = _nextDirection;
             if (snake[0].x == Size.x)
             {
-                // snake[0] = new Vector2Int(0, snake[0].y);
                 OnComplete();
                 return;
             }
             else if (snake[0].x == -1)
             {
-                // snake[0] = new Vector2Int(Size.x - 1, snake[0].y);
                 OnComplete();
                 return;
             }
             else if (snake[0].y == Size.y)
             {
-                // snake[0] = new Vector2Int(snake[0].x, 0);
                 OnComplete();
                 return;
             }
             else if (snake[0].y == -1)
             {
-                // snake[0] = new Vector2Int(snake[0].x, Size.y - 1);
                 OnComplete();
                 return;
             }

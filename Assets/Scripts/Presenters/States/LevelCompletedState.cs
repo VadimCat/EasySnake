@@ -1,5 +1,6 @@
 ﻿using Client;
 using Cysharp.Threading.Tasks;
+using Ji2.Ji2Core.Scripts.CommonCore;
 using Ji2Core.Core.Audio;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
@@ -13,36 +14,31 @@ namespace Presenters.States
         private readonly StateMachine stateMachine;
         private readonly ScreenNavigator screenNavigator;
         private readonly LevelsLoopProgress levelsLoopProgress;
-        // private readonly LevelsConfig levelsConfig;
         private readonly AudioService audioService;
-        // private readonly LevelResultViewConfig levelResultViewConfig;
+        private readonly LocalLeaderboard _leaderboard;
 
         public LevelCompletedState(StateMachine stateMachine, ScreenNavigator screenNavigator,
-            AudioService audioService)
+            AudioService audioService, LocalLeaderboard leaderboard)
         {
             this.stateMachine = stateMachine;
             this.screenNavigator = screenNavigator;
             this.audioService = audioService;
+            _leaderboard = leaderboard;
         }
 
         public async UniTask Enter(LevelCompletedPayload payload)
         {
             var screen = await screenNavigator.PushScreen<LevelCompletedScreen>();
-            
+            _leaderboard.Load();
+            _leaderboard.AddRecord("You", payload.Level.Score);
+            screen.ShowRecords(_leaderboard.Records, payload.Level.Score);
             screen.ClickNext += ClickNext;
-            // screen.ClickRetry += OnClickRetry;
         }
-
-        private void OnClickRetry()
-        {
-            var levelData = levelsLoopProgress.GetRetryLevelData();
-            stateMachine.Enter<LoadLevelState, LoadLevelStatePayload>(new LoadLevelStatePayload(1f));
-        }
-
+        
         private void ClickNext()
         {
             audioService.PlaySfxAsync(AudioClipName.ButtonFX);
-            // var levelData = levelsLoopProgress.GetNextLevelData();
+
             stateMachine.Enter<LoadLevelState, LoadLevelStatePayload>(new LoadLevelStatePayload(1f));
         }
 

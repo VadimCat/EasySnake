@@ -60,7 +60,7 @@ namespace Presenters.States
 
         private GameStatePayload BuildLevel()
         {
-            var level = new Level(context.GetService<UpdateService>(), new Vector2Int(10, 10), 5,
+            var level = new Level(context.GetService<UpdateService>(), new Vector2Int(15, 15), 5,
                 context.GetService<Analytics>(), new LevelData(), context.SaveDataContainer);
             
             var snakeView = context.GetService<SnakeGameView>();

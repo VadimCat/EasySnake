@@ -40,9 +40,8 @@ namespace Presenters
 
         public void BuildLevel()
         {
-            _positionProvider = new PositionProvider(Model.Size, .16f);
-            _snakeGameView.Initialize(_snakePartsPool, _foodPartsPool, Model.Size,
-                _positionProvider);
+            _positionProvider = new PositionProvider(Model.Size, _screenNavigator.Size, _screenNavigator.ScaleFactor);
+            _snakeGameView.Initialize(_snakePartsPool, _foodPartsPool, Model.Size, _positionProvider);
 
             _foodContainerView = _snakeGameView.FoodContainerView;
             _snakeView = _snakeGameView.SpritesSnakeView;

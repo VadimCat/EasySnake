@@ -22,8 +22,8 @@ namespace Models
         private readonly HashSet<Vector2Int> fieldPoints;
         private List<Vector2Int> snake = new() { new(2, 5), new(1, 5), new(0, 5) };
 
-        private Vector2Int min = new Vector2Int(-1, -1);
-        private Vector2Int max = new Vector2Int(1, 1);
+        private Vector2Int min = new(-1, -1);
+        private Vector2Int max = new(1, 1);
 
         public readonly Vector2Int Size;
 
@@ -36,6 +36,8 @@ namespace Models
         private List<Vector2Int> food = new();
         public IReadOnlyList<Vector2Int> Food => food.AsReadOnly();
 
+        public int Score => _score;
+
         public float speedRate = 1;
 
         public event Action<Vector2Int> FoodSpawn;
@@ -43,8 +45,8 @@ namespace Models
         public event Action<int> ScoreUpdate;
 
         public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
-            LevelData levelData,
-            ISaveDataContainer saveDataContainer) : base(analytics, levelData, saveDataContainer)
+            LevelData levelData, ISaveDataContainer saveDataContainer) 
+            : base(analytics, levelData, saveDataContainer)
         {
             _updateService = updateService;
             _speed = speed;

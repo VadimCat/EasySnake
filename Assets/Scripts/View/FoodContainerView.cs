@@ -18,7 +18,9 @@ namespace Views
 
         public void SpawnFood(Vector2Int pos)
         {
-            var newFood = _foodPool.Spawn(_positionProvider.GetPoint(pos));
+            var newFood = _foodPool.Spawn(_positionProvider.GetPoint(pos) + Vector3.back);
+            newFood.transform.localScale = new Vector3(_positionProvider._cellSize, _positionProvider._cellSize, 1);
+            
             _foodViews.Add(pos, newFood);
         }
 

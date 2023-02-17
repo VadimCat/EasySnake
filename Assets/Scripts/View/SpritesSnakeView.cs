@@ -62,9 +62,8 @@ namespace Views
                 {
                     var newPart = _partsPool.Spawn(keyPositions.Last());
                     _parts.Add(newPart);
-                    newPart
-                        .SetLayer(_parts.Count - 1)
-                        .SetInnerSpriteScale(_viewConfig.MaxPartScale);
+                    newPart.SetLayer(_parts.Count - 1)
+                        .SetInnerSpriteScale(_viewConfig.NormalizedPartScale * _positionProvider._cellSize);
                 }
             }
 
@@ -110,10 +109,10 @@ namespace Views
             var scale = Vector3.one * ScaleCurve.Evaluate(1);
             lastPart.transform.localScale = scale;
 
-            var lastSeq =  DOTween.Sequence();
+            var lastSeq = DOTween.Sequence();
             lastSeq.Append(lastPart.transform.DOMove(keyPositions.Last(), moveTime)
                 .SetEase(Ease.Linear));
-            
+
             _sequences.Add(lastSeq);
         }
 

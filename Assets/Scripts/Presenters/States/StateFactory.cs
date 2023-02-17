@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ji2.Ji2Core.Scripts.CommonCore;
 using Ji2.Presenters.Tutorial;
 using Ji2Core.Core;
 using Ji2Core.Core.Audio;
@@ -30,7 +31,7 @@ namespace Presenters.States
             dict[typeof(GameState)] = new GameState(stateMachine, screenNavigator);
 
             dict[typeof(LevelCompletedState)] = new LevelCompletedState(stateMachine, screenNavigator,
-                context.GetService<AudioService>());
+                context.GetService<AudioService>(), new LocalLeaderboard(context.SaveDataContainer));
 
             return dict;
         }

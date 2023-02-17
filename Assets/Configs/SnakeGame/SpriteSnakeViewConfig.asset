@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0269416665d4cef94aa359bcab3335c, type: 3}
   m_Name: SpriteSnakeViewConfig
   m_EditorClassIdentifier: 
-  normalizedPartScale: 0.95
+  normalizedPartScale: 0.85
   curve:
     serializedVersion: 2
     m_Curve:
@@ -36,9 +36,9 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.5
-      inSlope: -0.8262414
-      outSlope: -0.8262414
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

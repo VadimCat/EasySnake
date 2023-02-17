@@ -26,7 +26,7 @@ namespace Presenters.States
             dict[typeof(InitialState)] = new InitialState(stateMachine, screenNavigator, context.SaveDataContainer);
 
             dict[typeof(LoadLevelState)] = new LoadLevelState(context, stateMachine, context.SceneLoader(),
-                screenNavigator, context.GetService<BackgroundService>());
+                screenNavigator, context.GetService<BackgroundService>(), context.GetService<LevelConfig>());
 
             dict[typeof(GameState)] = new GameState(stateMachine, screenNavigator);
 

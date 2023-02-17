@@ -22,18 +22,20 @@ namespace Presenters.States
         private readonly ScreenNavigator screenNavigator;
         private readonly Context context;
         private readonly BackgroundService backgroundService;
+        private readonly LevelConfig _levelConfig;
 
         private LoadingScreen loadingScreen;
         private LevelData levelData;
 
         public LoadLevelState(Context context, StateMachine stateMachine, SceneLoader sceneLoader,
-            ScreenNavigator screenNavigator, BackgroundService backgroundService)
+            ScreenNavigator screenNavigator, BackgroundService backgroundService, LevelConfig levelConfig)
         {
             this.context = context;
             this.stateMachine = stateMachine;
             this.sceneLoader = sceneLoader;
             this.screenNavigator = screenNavigator;
             this.backgroundService = backgroundService;
+            _levelConfig = levelConfig;
         }
 
         public async UniTask Enter(LoadLevelStatePayload payload)
@@ -60,7 +62,7 @@ namespace Presenters.States
 
         private GameStatePayload BuildLevel()
         {
-            var level = new Level(context.GetService<UpdateService>(), new Vector2Int(15, 15), 5,
+            var level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
                 context.GetService<Analytics>(), new LevelData(), context.SaveDataContainer);
             
             var snakeView = context.GetService<SnakeGameView>();

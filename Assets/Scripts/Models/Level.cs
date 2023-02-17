@@ -20,7 +20,7 @@ namespace Models
         private Vector2Int _nextDirection = Vector2Int.right;
         private float movement = 0;
         private readonly HashSet<Vector2Int> fieldPoints;
-        private List<Vector2Int> snake = new() { new(2, 5), new(1, 5), new(0, 5) };
+        private List<Vector2Int> snake;
 
         private Vector2Int min = new(-1, -1);
         private Vector2Int max = new(1, 1);
@@ -45,7 +45,7 @@ namespace Models
         public event Action<int> ScoreUpdate;
 
         public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
-            LevelData levelData, ISaveDataContainer saveDataContainer) 
+            LevelData levelData, ISaveDataContainer saveDataContainer)
             : base(analytics, levelData, saveDataContainer)
         {
             _updateService = updateService;
@@ -53,6 +53,7 @@ namespace Models
             Size = size;
 
             fieldPoints = new HashSet<Vector2Int>(size.x * size.y);
+            snake = new() { new(size.x / 2, size.y / 2), new(size.x / 2 - 1, size.y / 2) };
 
             for (int i = 0; i < size.x; i++)
             {

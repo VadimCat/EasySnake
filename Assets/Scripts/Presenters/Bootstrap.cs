@@ -18,6 +18,7 @@ namespace Presenters
 {
     public class  Bootstrap : BootstrapBase
     {
+        [SerializeField] private LevelConfig levelConfig;
         [SerializeField] private SnakePartView snakePartViewPrefab;
         [SerializeField] private FoodView foodViewPrefab;
         
@@ -47,6 +48,7 @@ namespace Presenters
             InstallSceneLoader();
             InstallCompliments();
             InstallBackgrounds();
+            
             InstallAppComponents();
             
             var appStateMachine = InstallStateMachine();
@@ -57,6 +59,7 @@ namespace Presenters
 
         private void InstallAppComponents()
         {
+            context.Register(levelConfig);
             context.Register(new Pool<SnakePartView>(snakePartViewPrefab, transform));
             context.Register(new Pool<FoodView>(foodViewPrefab, transform));
         }

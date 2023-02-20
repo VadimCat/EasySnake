@@ -37,7 +37,7 @@ namespace Presenters.States
         
         private void ClickNext()
         {
-            audioService.PlaySfxAsync(AudioClipName.ButtonFX);
+            audioService.PlaySfxAsync(SoundNamesCollection.ButtonTap);
 
             stateMachine.Enter<LoadLevelState, LoadLevelStatePayload>(new LoadLevelStatePayload(1f));
         }

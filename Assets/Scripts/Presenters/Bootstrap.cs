@@ -1,3 +1,4 @@
+using Client;
 using Core.Compliments;
 using Ji2.CommonCore;
 using Ji2.CommonCore.SaveDataContainer;
@@ -118,7 +119,7 @@ namespace Presenters
         private void InstallAudioService()
         {
             audioService.Bootstrap();
-            audioService.PlayMusic(AudioClipName.DefaultBackgroundMusic);
+            audioService.PlayMusic(SoundNamesCollection.Music);
             context.Register(audioService);
         }
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2db75aaaaa44ecfbc158cad3df558e2, type: 3}
-  m_Name: BackgroundMusicClipConfig
+  m_Name: ChangeDirectionClipConfig
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -29,4 +29,4 @@ MonoBehaviour:
       Data: 
   playVolume: 1
   clip: {fileID: 8300000, guid: 2bd7394c22028ee459bb2f55659622f8, type: 3}
-  clipName: Music
+  clipName: ChangeDirection

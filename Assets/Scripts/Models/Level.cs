@@ -115,21 +115,22 @@ namespace Models
             }
             else
             {
-                var path = TryFindPathWave(headPos, foodPos);
-                if (path.Count == 0)
+                var pathes = TryFindPathWave(headPos, foodPos);
+                if (pathes.Count == 0)
                 {
                     for (int i = 2; i < snake.Count; i++)
                     {
                         if (!Mathf.Approximately(Vector2Int.Distance(headPos, snake[i]), 1))
                         {
-                            path = TryFindPathWave(headPos, snake[i]);
+                            pathes = TryFindPathWave(headPos, snake[i]);
                         }
                     }
                 }
 
-                if (path.Count > 0)
+                if (pathes.Count > 0)
                 {
-                    ChangeDirection(path[0] - headPos);
+                    var direction = pathes.FirstOrDefault(el => el - headPos != _direction);
+                    ChangeDirection(direction - headPos);
                 }
             }
         }
@@ -282,6 +283,7 @@ namespace Models
 
             snake[0] += _nextDirection;
             _direction = _nextDirection;
+            
             if (snake[0].x == Size.x)
             {
                 OnComplete();

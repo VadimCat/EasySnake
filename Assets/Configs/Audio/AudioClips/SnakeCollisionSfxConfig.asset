@@ -10,8 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2db75aaaaa44ecfbc158cad3df558e2, type: 3}
-  m_Name: ColoringSfxConfig
+  m_Name: SnakeCollisionSfxConfig
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _soundNamesOrigin
+      Entry: 7
+      Data: 0|Client.SoundNamesCollection, Client
+    - Name: 
+      Entry: 8
+      Data: 
   playVolume: 1
   clip: {fileID: 8300000, guid: 6f92fed5ade38d24ab4c6bfbcbccb3d4, type: 3}
-  clipName: 4
+  clipName: SnakeCollision

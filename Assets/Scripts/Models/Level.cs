@@ -38,6 +38,8 @@ namespace Models
 
         public int Score => _score;
 
+        public Vector2Int Direction => _direction;
+
         public float speedRate = 1;
 
         public event Action<Vector2Int> FoodSpawn;

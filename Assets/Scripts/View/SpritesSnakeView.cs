@@ -12,6 +12,7 @@ namespace Views
         private readonly List<SnakePartView> _parts;
         private readonly PositionProvider _positionProvider;
         private readonly SpriteSnakeViewConfig _viewConfig;
+        private readonly Head _head;
 
         private Gradient colorGradient => _viewConfig.Gradient;
 
@@ -22,11 +23,12 @@ namespace Views
         private List<Sequence> _sequences;
 
         public SpritesSnakeView(Pool<SnakePartView> pool, PositionProvider positionProvider,
-            SpriteSnakeViewConfig viewConfig)
+            SpriteSnakeViewConfig viewConfig, Head head)
         {
             _partsPool = pool;
             _positionProvider = positionProvider;
             _viewConfig = viewConfig;
+            _head = head;
 
             _parts = new List<SnakePartView>(positionProvider.Size.x * positionProvider.Size.y *
                 viewConfig.PointPerSegment - 1);
@@ -64,6 +66,13 @@ namespace Views
                     _parts.Add(newPart);
                     newPart.SetLayer(_parts.Count - 1)
                         .SetInnerSpriteScale(_viewConfig.NormalizedPartScale * _positionProvider._cellSize);
+
+                    if (_parts.Count == 1)
+                    {
+                        Transform transform;
+                        (transform = _head.transform).SetParent(_parts[0].transform);
+                        transform.localPosition = Vector3.zero;
+                    }
                 }
             }
 
@@ -103,12 +112,9 @@ namespace Views
                 }
             }
 
+            SetParametersByPos(_parts.Count - 1);
+
             var lastPart = _parts.Last();
-            lastPart.SetColor(colorGradient.Evaluate(1));
-
-            var scale = Vector3.one * ScaleCurve.Evaluate(1);
-            lastPart.transform.localScale = scale;
-
             var lastSeq = DOTween.Sequence();
             lastSeq.Append(lastPart.transform.DOMove(keyPositions.Last(), moveTime)
                 .SetEase(Ease.Linear));
@@ -118,17 +124,19 @@ namespace Views
 
         private void SetParametersByPos(int currentPartIndex)
         {
+            _parts[currentPartIndex].SetColor(currentPartIndex / (PointsPerSegment + 1) % 2 == 0
+                ? _viewConfig.Color1
+                : _viewConfig.Color2);
+
             float time = (float)currentPartIndex / _parts.Count;
-
-            var color = colorGradient.Evaluate(time);
-            _parts[currentPartIndex].SetColor(color);
-
             var scale = Vector3.one * ScaleCurve.Evaluate(time);
             _parts[currentPartIndex].transform.localScale = scale;
         }
 
         public void Destroy()
         {
+            Object.Destroy(_head.gameObject);
+            
             foreach (var part in _parts)
             {
                 _partsPool.DeSpawn(part);

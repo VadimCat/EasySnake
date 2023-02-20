@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
@@ -27,7 +29,8 @@ namespace Presenters
         private GameScreen _gameScreen;
         private StateMachine _screenStateMachine;
         private PositionProvider _positionProvider;
-
+        private Head _head;
+        
         public LevelPresenter(Level level, SnakeGameView snakeGameView, Pool<SnakePartView> snakePartsPool,
             Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator)
         {
@@ -36,6 +39,7 @@ namespace Presenters
             _snakePartsPool = snakePartsPool;
             _foodPartsPool = foodPartsPool;
             _screenNavigator = screenNavigator;
+            _head = snakeGameView.Head;
         }
 
         public void BuildLevel()
@@ -59,8 +63,8 @@ namespace Presenters
             _gameScreen = (GameScreen)_screenNavigator.CurrentScreen;
             _screenStateMachine = _gameScreen.GetStateMachine();
             Model.FoodSpawn += _foodContainerView.SpawnFood;
-            Model.FoodDeSpawn += _foodContainerView.DeSpawnFood;
-            Model.SnakeMove += _snakeView.Move;
+            Model.FoodDeSpawn += HandleFoodDespawn;
+            Model.SnakeMove += HandleSnakeMove;
             Model.Complete += Complete;
             Model.ScoreUpdate += HandleScoreUpdate;
 
@@ -75,6 +79,18 @@ namespace Presenters
             _screenStateMachine.Enter<PrepareGameScreenState>();
         }
 
+        private void HandleSnakeMove(IReadOnlyList<Vector2Int> positions)
+        {
+            _snakeView.Move(positions);
+            _head.ChangeDirection(Model.Direction);
+        }
+
+        private void HandleFoodDespawn(Vector2Int position)
+        {
+            _foodContainerView.DeSpawnFood(position);
+            _head.SwitchState(HeadState.Eat);
+        }
+        
         private void HandleScoreUpdate(int score)
         {
             var pos = _positionProvider.GetPoint(Model.Snake[0]) +
@@ -106,6 +122,8 @@ namespace Presenters
         {
             LevelCompleted?.Invoke();
 
+            _head.SwitchState(HeadState.Collision);
+            
             Model.FoodSpawn -= _foodContainerView.SpawnFood;
             Model.FoodDeSpawn -= _foodContainerView.DeSpawnFood;
 

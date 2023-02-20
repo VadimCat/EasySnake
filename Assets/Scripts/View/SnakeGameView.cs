@@ -6,6 +6,7 @@ namespace Views
 {
     public class SnakeGameView : MonoBehaviour
     {
+        [SerializeField] private Head head;
         [SerializeField] private SpriteSnakeViewConfig snakeViewConfig;
         [SerializeField] private SpriteRenderer oddCell;
         [SerializeField] private RectTransform fieldImage;
@@ -18,12 +19,14 @@ namespace Views
 
         public ISnakeView SpritesSnakeView => _spriteSpritesSnakeView;
         public FoodContainerView FoodContainerView => _foodContainerView;
+        public Head Head => head;
+
 
         public void Initialize(Pool<SnakePartView> partsPool, Pool<FoodView> foodPool, Vector2Int fieldSize,
             PositionProvider positionProvider)
         {
             _foodContainerView = new FoodContainerView(foodPool, positionProvider);
-            _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, snakeViewConfig);
+            _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, snakeViewConfig, head);
 
             fieldImage.sizeDelta = positionProvider.fieldImageSize;
             

@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Ji2.CommonCore;
+using Ji2.CommonCore.SaveDataContainer;
 using Ji2Core.Core;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
@@ -64,15 +65,16 @@ namespace Presenters.States
         {
             var level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
                 context.GetService<Analytics>(), new LevelData(), context.SaveDataContainer);
-            
+
             var snakeView = context.GetService<SnakeGameView>();
 
             LevelPresenter levelPresenter =
                 new LevelPresenter(level, snakeView, context.GetService<Pool<SnakePartView>>(),
-                    context.GetService<Pool<FoodView>>(), context.ScreenNavigator);
+                    context.GetService<Pool<FoodView>>(), context.ScreenNavigator,
+                    context.GetService<ISaveDataContainer>());
 
             levelPresenter.BuildLevel();
-            
+
             return new GameStatePayload
             {
                 levelPresenter = levelPresenter

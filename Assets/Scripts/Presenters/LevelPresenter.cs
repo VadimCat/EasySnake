@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ji2.CommonCore.SaveDataContainer;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
@@ -14,6 +15,7 @@ namespace Presenters
 {
     public class LevelPresenter
     {
+        private const string LEADERBOARD_SAVE_KEY = "Leaderbord";
         public Level Model { get; }
 
         public event Action LevelCompleted;
@@ -25,20 +27,22 @@ namespace Presenters
         private readonly Pool<SnakePartView> _snakePartsPool;
         private readonly Pool<FoodView> _foodPartsPool;
         private readonly ScreenNavigator _screenNavigator;
+        private readonly ISaveDataContainer _saveDataContainer;
 
         private GameScreen _gameScreen;
         private StateMachine _screenStateMachine;
         private PositionProvider _positionProvider;
         private Head _head;
-        
+
         public LevelPresenter(Level level, SnakeGameView snakeGameView, Pool<SnakePartView> snakePartsPool,
-            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator)
+            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator, ISaveDataContainer saveDataContainer)
         {
             Model = level;
             _snakeGameView = snakeGameView;
             _snakePartsPool = snakePartsPool;
             _foodPartsPool = foodPartsPool;
             _screenNavigator = screenNavigator;
+            _saveDataContainer = saveDataContainer;
             _head = snakeGameView.Head;
         }
 
@@ -74,6 +78,7 @@ namespace Presenters
             _gameScreen.PauseClick += Model.HandlePauseClick;
             _gameScreen.PlayClick += Model.HandlePlayClick;
 
+            SetHighScore();
 
             Model.Prepare();
             _screenStateMachine.Enter<PrepareGameScreenState>();
@@ -90,12 +95,12 @@ namespace Presenters
             _foodContainerView.DeSpawnFood(position);
             _head.SwitchState(HeadState.Eat);
         }
-        
+
         private void HandleScoreUpdate(int score)
         {
             var pos = _positionProvider.GetPoint(Model.Snake[0]) +
                       new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
-            
+
             _gameScreen.ShowPointsTip(pos);
             _gameScreen.SetScore(score);
         }
@@ -123,7 +128,7 @@ namespace Presenters
             LevelCompleted?.Invoke();
 
             _head.SwitchState(HeadState.Collision);
-            
+
             Model.FoodSpawn -= _foodContainerView.SpawnFood;
             Model.FoodDeSpawn -= _foodContainerView.DeSpawnFood;
 
@@ -134,6 +139,15 @@ namespace Presenters
             _snakeGameView = null;
             _foodContainerView = null;
             _snakeView = null;
+        }
+
+        private void SetHighScore()
+        {
+            var records = _saveDataContainer.GetValue(LEADERBOARD_SAVE_KEY, new List<(string, int)>());
+            int highScore = default;
+            if (records.Count > 0)
+                highScore = records[0].Item2;
+            _gameScreen.SetHighScore(highScore);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Client;
+﻿using System.Collections.Generic;
+using Client;
 using Cysharp.Threading.Tasks;
 using Ji2.Ji2Core.Scripts.CommonCore;
 using Ji2Core.Core.Audio;
@@ -30,11 +31,12 @@ namespace Presenters.States
         {
             var screen = await screenNavigator.PushScreen<LevelCompletedScreen>();
             _leaderboard.Load();
+            var oldRecord = _leaderboard.Records;
             _leaderboard.AddRecord("You", payload.Level.Score);
-            screen.ShowRecords(_leaderboard.Records, payload.Level.Score);
+            screen.ShowRecords(_leaderboard.Records, oldRecord, payload.Level.Score);
             screen.ClickNext += ClickNext;
         }
-        
+
         private void ClickNext()
         {
             audioService.PlaySfxAsync(SoundNamesCollection.ButtonTap);

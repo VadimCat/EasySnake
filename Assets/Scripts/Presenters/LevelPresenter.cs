@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Client;
+using Cysharp.Threading.Tasks;
+using Ji2Core.Core.Audio;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
@@ -25,6 +28,7 @@ namespace Presenters
         private readonly Pool<SnakePartView> _snakePartsPool;
         private readonly Pool<FoodView> _foodPartsPool;
         private readonly ScreenNavigator _screenNavigator;
+        private readonly AudioService _audioService;
 
         private GameScreen _gameScreen;
         private StateMachine _screenStateMachine;
@@ -32,13 +36,14 @@ namespace Presenters
         private Head _head;
         
         public LevelPresenter(Level level, SnakeGameView snakeGameView, Pool<SnakePartView> snakePartsPool,
-            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator)
+            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator, AudioService audioService)
         {
             Model = level;
             _snakeGameView = snakeGameView;
             _snakePartsPool = snakePartsPool;
             _foodPartsPool = foodPartsPool;
             _screenNavigator = screenNavigator;
+            _audioService = audioService;
             _head = snakeGameView.Head;
         }
 
@@ -67,16 +72,21 @@ namespace Presenters
             Model.SnakeMove += HandleSnakeMove;
             Model.Complete += Complete;
             Model.ScoreUpdate += HandleScoreUpdate;
-
+            Model.DirectionChange += OnDirectionChange;
+            
             Model.State.OnValueChanged += HandleStateChanged;
 
             _gameScreen.FieldClick += Model.HandleFieldClick;
             _gameScreen.PauseClick += Model.HandlePauseClick;
             _gameScreen.PlayClick += Model.HandlePlayClick;
 
-
             Model.Prepare();
             _screenStateMachine.Enter<PrepareGameScreenState>();
+        }
+        
+        private void OnDirectionChange(Vector2Int obj)
+        {
+            _audioService.PlaySfxAsync(SoundNamesCollection.ChangeDirection);
         }
 
         private void HandleSnakeMove(IReadOnlyList<Vector2Int> positions)
@@ -93,6 +103,8 @@ namespace Presenters
         
         private void HandleScoreUpdate(int score)
         {
+            _audioService.PlaySfxAsync(SoundNamesCollection.EatFood);
+
             var pos = _positionProvider.GetPoint(Model.Snake[0]) +
                       new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
             
@@ -102,6 +114,7 @@ namespace Presenters
 
         private void HandleStateChanged(GameState newState, GameState prevState)
         {
+            _audioService.PlaySfxAsync(SoundNamesCollection.ButtonTap);
             switch (newState)
             {
                 case GameState.Prepare:
@@ -118,11 +131,15 @@ namespace Presenters
             }
         }
 
-        private void Complete()
+        private async void Complete()
         {
+            _audioService.PlaySfxAsync(SoundNamesCollection.SnakeCollision);
+            _head.SwitchState(HeadState.Collision);
+            await UniTask.Delay(1500);
+            _audioService.PlaySfxAsync(SoundNamesCollection.WinScreenShow);
+            
             LevelCompleted?.Invoke();
 
-            _head.SwitchState(HeadState.Collision);
             
             Model.FoodSpawn -= _foodContainerView.SpawnFood;
             Model.FoodDeSpawn -= _foodContainerView.DeSpawnFood;

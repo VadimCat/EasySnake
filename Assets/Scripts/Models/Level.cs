@@ -6,6 +6,7 @@ using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Models;
 using Ji2.Models.Analytics;
 using Ji2.Utils;
+using Ji2Core.Core.Audio;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -45,9 +46,10 @@ namespace Models
         public event Action<Vector2Int> FoodSpawn;
         public event Action<Vector2Int> FoodDeSpawn;
         public event Action<int> ScoreUpdate;
+        public event Action<Vector2Int> DirectionChange;
 
         public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
-            LevelData levelData, ISaveDataContainer saveDataContainer)
+            LevelData levelData, ISaveDataContainer saveDataContainer, AudioService audioService)
             : base(analytics, levelData, saveDataContainer)
         {
             _updateService = updateService;
@@ -70,7 +72,7 @@ namespace Models
 
         public void Prepare()
         {
-            SnakeMove?.Invoke(snake.AsReadOnly());
+            // SnakeMove?.Invoke(snake.AsReadOnly());
         }
 
         private void Start()
@@ -269,6 +271,10 @@ namespace Models
             if (_direction == direction)
             {
                 speedRate = 2;
+            }
+            else
+            {
+                DirectionChange?.Invoke(direction);
             }
 
             _nextDirection = direction;

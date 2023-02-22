@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Ji2.CommonCore;
 using Ji2Core.Core;
+using Ji2Core.Core.Audio;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
@@ -57,22 +58,25 @@ namespace Presenters.States
 
             var gamePayload = BuildLevel();
 
+            await UniTask.Delay(500);
+            
             stateMachine.Enter<GameState, GameStatePayload>(gamePayload);
         }
 
         private GameStatePayload BuildLevel()
         {
             var level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
-                context.GetService<Analytics>(), new LevelData(), context.SaveDataContainer);
-            
+                context.GetService<Analytics>(), new LevelData(), context.SaveDataContainer,
+                context.GetService<AudioService>());
+
             var snakeView = context.GetService<SnakeGameView>();
 
             LevelPresenter levelPresenter =
                 new LevelPresenter(level, snakeView, context.GetService<Pool<SnakePartView>>(),
-                    context.GetService<Pool<FoodView>>(), context.ScreenNavigator);
+                    context.GetService<Pool<FoodView>>(), context.ScreenNavigator, context.GetService<AudioService>());
 
             levelPresenter.BuildLevel();
-            
+
             return new GameStatePayload
             {
                 levelPresenter = levelPresenter

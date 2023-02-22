@@ -138,14 +138,19 @@ namespace Presenters
             _audioService.PlaySfxAsync(SoundNamesCollection.WinScreenShow);
             
             LevelCompleted?.Invoke();
-
             
             Model.FoodSpawn -= _foodContainerView.SpawnFood;
-            Model.FoodDeSpawn -= _foodContainerView.DeSpawnFood;
-
-            Model.SnakeMove -= _snakeView.Move;
-
+            Model.FoodDeSpawn -= HandleFoodDespawn;
+            Model.SnakeMove -= HandleSnakeMove;
             Model.Complete -= Complete;
+            Model.ScoreUpdate -= HandleScoreUpdate;
+            Model.DirectionChange -= OnDirectionChange;
+            
+            Model.State.OnValueChanged -= HandleStateChanged;
+
+            _gameScreen.FieldClick -= Model.HandleFieldClick;
+            _gameScreen.PauseClick -= Model.HandlePauseClick;
+            _gameScreen.PlayClick -= Model.HandlePlayClick;
 
             _snakeGameView = null;
             _foodContainerView = null;

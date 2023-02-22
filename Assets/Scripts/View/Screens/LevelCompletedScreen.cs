@@ -17,8 +17,9 @@ namespace Views
         [SerializeField] private Transform recordsRoot;
         [SerializeField] private TMP_Text currentScoreTip;
         [SerializeField] private TMP_Text currentScore;
-        
-        
+        [SerializeField] private GameObject newBestScore;
+        [SerializeField] private List<Sprite> cupIcons;
+
         public event Action ClickNext;
 
         private void Awake()
@@ -42,17 +43,30 @@ namespace Views
             ClickNext = null;
         }
 
-        public void ShowRecords(IReadOnlyList<(string, int)> leaderboardRecords, int score)
+        public void ShowRecords(IReadOnlyList<(string, int)> leaderboardRecords, IReadOnlyList<(string, int)> oldRecord, int score)
         {
             currentScore.text = score.ToString();
-            
+            if (IsNewBestScoreMustBeShow(oldRecord, score))
+                newBestScore.SetActive(true);
+
             for (var i = 0; i < leaderboardRecords.Count; i++)
             {
                 var record = leaderboardRecords[i];
                 var recordView = Instantiate(recordViewPrefab, recordsRoot);
                 recordView.SetData(record, i + 1);
                 Instantiate(separatorPrefab, recordsRoot);
+                if (i < 3)
+                {
+                    recordView.SetIcon(cupIcons?[i]);
+                }
             }
+        }
+
+        private bool IsNewBestScoreMustBeShow(IReadOnlyList<(string, int)> lastRecord, int score)
+        {
+            if (lastRecord.Count == 1|| lastRecord[0].Item2 < score)
+                return true;
+            return false;
         }
     }
 }

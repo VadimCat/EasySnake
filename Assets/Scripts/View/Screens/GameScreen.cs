@@ -21,16 +21,17 @@ namespace Views.Screens
         [SerializeField] private Image handTip;
 
         [SerializeField] private TMP_Text score;
+        [SerializeField] private TMP_Text highScore;
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private PoolableImage scoreIncTipPrefab;
         [SerializeField] private Image overlay;
-        
+
         private Pool<PoolableImage> scoreTipsPool;
         private StateMachine gameScreenStateMachine;
- 
+
         internal Button PauseButton => pauseButton;
         internal Button PlayButton => playButton;
-        
+
         public event Action PauseClick;
         public event Action PlayClick;
         public event Action FieldClick;
@@ -45,7 +46,7 @@ namespace Views.Screens
                 gameScreenStateMachine = new StateMachine(new GameScreenStatesFactory(this));
                 gameScreenStateMachine.Load();
             }
-        
+
             return gameScreenStateMachine;
         }
 
@@ -57,7 +58,7 @@ namespace Views.Screens
             fieldButton.onClick.AddListener(FireFieldClick);
         }
 
-        
+
         public async Task ShowPointsTip(Vector3 pos)
         {
             var image = scoreTipsPool.Spawn(pos, parent: transform, isWorldSpace: true);
@@ -78,10 +79,15 @@ namespace Views.Screens
         {
             handTip.DOFade(isEnabled ? 1 : 0, 1f);
         }
-        
+
         public void SetScore(int score)
         {
             this.score.text = score.ToString();
+        }
+
+        public void SetHighScore(int value)
+        {
+            highScore.text = value.ToString();
         }
 
         public void ShowTextTip(string text)
@@ -115,7 +121,7 @@ namespace Views.Screens
             PauseClick = null;
             PlayClick = null;
             FieldClick = null;
-         
+
             pauseButton.onClick.RemoveAllListeners();
             playButton.onClick.RemoveAllListeners();
             fieldButton.onClick.RemoveAllListeners();

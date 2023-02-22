@@ -16,6 +16,7 @@ namespace Views.Screens
         {
             _gameScreen.Overlay.gameObject.SetActive(false);
             _gameScreen.PauseButton.gameObject.SetActive(true);
+            _gameScreen.PlayButton.gameObject.SetActive(false);
             _gameScreen.PauseButton.interactable = true;
             return UniTask.CompletedTask;
         }

@@ -134,7 +134,7 @@ namespace Presenters
         {
             _audioService.PlaySfxAsync(SoundNamesCollection.SnakeCollision);
             _head.SwitchState(HeadState.Collision);
-            await UniTask.Delay(1500);
+            await UniTask.Delay(1000);
             _audioService.PlaySfxAsync(SoundNamesCollection.WinScreenShow);
             
             LevelCompleted?.Invoke();

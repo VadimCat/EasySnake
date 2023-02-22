@@ -386,10 +386,10 @@ namespace Models
             switch (State.Value)
             {
                 case GameState.Pause:
+                    Start();
                     break;
                 case GameState.Prepare:
                 case GameState.Game:
-                    Start();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

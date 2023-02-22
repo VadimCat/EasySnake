@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Client;
 using Ji2.Ji2Core.Scripts.CommonCore;
 using Ji2.Presenters.Tutorial;
 using Ji2Core.Core;
@@ -26,7 +27,8 @@ namespace Presenters.States
             dict[typeof(InitialState)] = new InitialState(stateMachine, screenNavigator, context.SaveDataContainer);
 
             dict[typeof(LoadLevelState)] = new LoadLevelState(context, stateMachine, context.SceneLoader(),
-                screenNavigator, context.GetService<BackgroundService>(), context.GetService<LevelConfig>());
+                screenNavigator, context.GetService<BackgroundService>(), context.GetService<LevelConfig>(),
+                new LevelsLoopProgress(context.SaveDataContainer, new []{""}));
 
             dict[typeof(GameState)] = new GameState(stateMachine, screenNavigator);
 

@@ -28,5 +28,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   playVolume: 1
-  clip: {fileID: 8300000, guid: 36d8bf5fc173a664a852bae187914d09, type: 3}
+  clip: {fileID: 8300000, guid: 9d7e64ab6157a4e6b97cc7693887ff6b, type: 3}
   clipName: EatFood

@@ -15,9 +15,8 @@ namespace Views.Screens
         public UniTask Enter()
         {
             _gameScreen.Overlay.gameObject.SetActive(false);
-            _gameScreen.PauseButton.gameObject.SetActive(true);
-            _gameScreen.PauseButton.interactable = false;
-            _gameScreen.PlayButton.gameObject.SetActive(false);
+            _gameScreen.PauseButton.gameObject.SetActive(false);
+            _gameScreen.PlayButton.gameObject.SetActive(true);
             _gameScreen.ShowHandTip(true);
             _gameScreen.ShowTextTip("Tap to start!");
             return UniTask.CompletedTask;

@@ -70,11 +70,6 @@ namespace Models
             SpawnFood();
         }
 
-        public void Prepare()
-        {
-            // SnakeMove?.Invoke(snake.AsReadOnly());
-        }
-
         private void Start()
         {
             _updateService.Add(this);
@@ -91,6 +86,7 @@ namespace Models
         {
             base.OnComplete();
 
+            LogAnalyticsLevelFinish();
             _updateService.Remove(this);
         }
 
@@ -350,6 +346,8 @@ namespace Models
                     Start();
                     break;
                 case GameState.Game:
+                    CheckAnalyticsLevelStart();
+                    
                     TryChangeDirection();
                     break;
                 case GameState.Pause:
@@ -357,6 +355,14 @@ namespace Models
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void CheckAnalyticsLevelStart()
+        {
+            if (State.PrevValue == GameState.Prepare)
+            {
+                LogAnalyticsLevelStart();
             }
         }
 

@@ -80,7 +80,6 @@ namespace Presenters
             _gameScreen.PauseClick += Model.HandlePauseClick;
             _gameScreen.PlayClick += Model.HandlePlayClick;
 
-            Model.Prepare();
             _screenStateMachine.Enter<PrepareGameScreenState>();
         }
         

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Client;
+using Cysharp.Threading.Tasks;
 using Ji2.CommonCore;
 using Ji2Core.Core;
 using Ji2Core.Core.Audio;
@@ -8,7 +9,6 @@ using Ji2Core.Core.States;
 using Models;
 using UI.Background;
 using UI.Screens;
-using UnityEngine;
 using Views;
 using Analytics = Ji2.Models.Analytics.Analytics;
 
@@ -24,12 +24,14 @@ namespace Presenters.States
         private readonly Context context;
         private readonly BackgroundService backgroundService;
         private readonly LevelConfig _levelConfig;
+        private readonly LevelsLoopProgress _levelsLoopProgress;
 
         private LoadingScreen loadingScreen;
         private LevelData levelData;
 
         public LoadLevelState(Context context, StateMachine stateMachine, SceneLoader sceneLoader,
-            ScreenNavigator screenNavigator, BackgroundService backgroundService, LevelConfig levelConfig)
+            ScreenNavigator screenNavigator, BackgroundService backgroundService, LevelConfig levelConfig,
+            LevelsLoopProgress levelsLoopProgress)
         {
             this.context = context;
             this.stateMachine = stateMachine;
@@ -37,6 +39,7 @@ namespace Presenters.States
             this.screenNavigator = screenNavigator;
             this.backgroundService = backgroundService;
             _levelConfig = levelConfig;
+            _levelsLoopProgress = levelsLoopProgress;
         }
 
         public async UniTask Enter(LoadLevelStatePayload payload)
@@ -66,7 +69,7 @@ namespace Presenters.States
         private GameStatePayload BuildLevel()
         {
             var level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
-                context.GetService<Analytics>(), new LevelData(), context.SaveDataContainer,
+                context.GetService<Analytics>(), _levelsLoopProgress.GetNextLevelData(), context.SaveDataContainer,
                 context.GetService<AudioService>());
 
             var snakeView = context.GetService<SnakeGameView>();

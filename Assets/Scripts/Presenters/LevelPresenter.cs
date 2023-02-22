@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ji2.CommonCore.SaveDataContainer;
+using Ji2.Ji2Core.Scripts.CommonCore;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
@@ -15,7 +16,6 @@ namespace Presenters
 {
     public class LevelPresenter
     {
-        private const string LEADERBOARD_SAVE_KEY = "Leaderbord";
         public Level Model { get; }
 
         public event Action LevelCompleted;
@@ -27,7 +27,7 @@ namespace Presenters
         private readonly Pool<SnakePartView> _snakePartsPool;
         private readonly Pool<FoodView> _foodPartsPool;
         private readonly ScreenNavigator _screenNavigator;
-        private readonly ISaveDataContainer _saveDataContainer;
+        private readonly LocalLeaderboard _leaderboard;
 
         private GameScreen _gameScreen;
         private StateMachine _screenStateMachine;
@@ -35,14 +35,15 @@ namespace Presenters
         private Head _head;
 
         public LevelPresenter(Level level, SnakeGameView snakeGameView, Pool<SnakePartView> snakePartsPool,
-            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator, ISaveDataContainer saveDataContainer)
+            Pool<FoodView> foodPartsPool, ScreenNavigator screenNavigator, LocalLeaderboard leaderboard)
         {
             Model = level;
             _snakeGameView = snakeGameView;
             _snakePartsPool = snakePartsPool;
             _foodPartsPool = foodPartsPool;
             _screenNavigator = screenNavigator;
-            _saveDataContainer = saveDataContainer;
+            _leaderboard = leaderboard;
+                
             _head = snakeGameView.Head;
         }
 
@@ -143,11 +144,8 @@ namespace Presenters
 
         private void SetHighScore()
         {
-            var records = _saveDataContainer.GetValue(LEADERBOARD_SAVE_KEY, new List<(string, int)>());
-            int highScore = default;
-            if (records.Count > 0)
-                highScore = records[0].Item2;
-            _gameScreen.SetHighScore(highScore);
+            var record = _leaderboard.GetHightRecord();
+            _gameScreen.SetHighScore(record);
         }
     }
 }

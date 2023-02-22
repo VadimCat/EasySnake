@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Ji2.CommonCore;
 using Ji2.CommonCore.SaveDataContainer;
+using Ji2.Ji2Core.Scripts.CommonCore;
 using Ji2Core.Core;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
@@ -71,7 +72,7 @@ namespace Presenters.States
             LevelPresenter levelPresenter =
                 new LevelPresenter(level, snakeView, context.GetService<Pool<SnakePartView>>(),
                     context.GetService<Pool<FoodView>>(), context.ScreenNavigator,
-                    context.GetService<ISaveDataContainer>());
+                    new LocalLeaderboard(context.SaveDataContainer));
 
             levelPresenter.BuildLevel();
 

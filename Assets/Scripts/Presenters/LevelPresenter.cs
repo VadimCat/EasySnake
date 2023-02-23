@@ -104,6 +104,7 @@ namespace Presenters
         {
             _foodContainerView.DeSpawnFood(position);
             _head.SwitchState(HeadState.Eat);
+            _snakeView.EatAnimation();
         }
 
         private void HandleScoreUpdate(int score)
@@ -164,7 +165,7 @@ namespace Presenters
 
         private void SetHighScore()
         {
-            var record = _leaderboard.GetHightRecord();
+            var record = _leaderboard.GetHighRecord();
             _gameScreen.SetHighScore(record);
         }
     }

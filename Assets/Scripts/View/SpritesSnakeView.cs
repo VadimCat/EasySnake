@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Ji2.Utils;
 using Ji2Core.Core.Pools;
 using UnityEngine;
 
@@ -136,7 +137,7 @@ namespace Views
         public void Destroy()
         {
             Object.Destroy(_head.gameObject);
-            
+
             foreach (var part in _parts)
             {
                 _partsPool.DeSpawn(part);
@@ -151,10 +152,29 @@ namespace Views
 
             _linkedParts.Clear();
         }
+
+        public void EatAnimation()
+        {
+            var foodBall = _partsPool.Spawn();
+
+            foodBall.SetLayer(_parts.Count - 1)
+                .SetInnerSpriteScale(_viewConfig.NormalizedPartScale * _positionProvider._cellSize);
+            foodBall.transform.localScale *= 1.2f;
+
+            float pos = 0;
+            DOTween.To(() => pos, (newPos) =>
+                {
+                    pos = newPos;
+                    foodBall.transform.position = _parts[(int)pos].transform.position;
+                    foodBall.SetColor(_parts[(int)pos].GetColor());
+                }, _parts.Count, 2f)
+                .OnComplete(() => foodBall.DeSpawn());
+        }
     }
 
     public interface ISnakeView
     {
         public void Move(IReadOnlyList<Vector2Int> positions);
+        public void EatAnimation();
     }
 }

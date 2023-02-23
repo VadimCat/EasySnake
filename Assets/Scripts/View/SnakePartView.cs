@@ -7,6 +7,8 @@ namespace Views
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        public Color GetColor() => _spriteRenderer.color;
+
         public SnakePartView SetColor(Color color)
         {
             _spriteRenderer.color = color;
@@ -18,13 +20,13 @@ namespace Views
             _spriteRenderer.transform.localScale = Vector3.one * scale;
             return this;
         }
-        
+
         public SnakePartView SetLayer(int layer)
         {
             _spriteRenderer.sortingOrder = layer;
             return this;
         }
-        
+
         public void Spawn()
         {
             gameObject.SetActive(true);

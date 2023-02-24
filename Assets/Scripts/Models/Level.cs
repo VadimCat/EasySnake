@@ -163,7 +163,14 @@ namespace Models
 
             foreach (var parts in snake)
             {
-                pathGrid[parts.x][parts.y] = int.MaxValue;
+                try
+                {
+                    pathGrid[parts.x][parts.y] = int.MaxValue;
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    return new List<Vector2Int>();
+                }
             }
 
             pathGrid[start.x][start.y] = 1;
@@ -287,7 +294,7 @@ namespace Models
 
             snake[0] += _nextDirection;
             _direction = _nextDirection;
-            
+
             if (snake[0].x == Size.x)
             {
                 OnComplete();
@@ -347,7 +354,7 @@ namespace Models
                     break;
                 case GameState.Game:
                     CheckAnalyticsLevelStart();
-                    
+
                     TryChangeDirection();
                     break;
                 case GameState.Pause:

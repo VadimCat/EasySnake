@@ -16,7 +16,7 @@ namespace Views
         {
             gameObject.SetActive(true);
             sprite.sprite = config.GetNextSprite();
-            currentTween = sprite.transform.DoPulseScale(1.04f, 1, sprite.gameObject);
+            currentTween = sprite.transform.DoPulseScale(1.1f, 1, sprite.gameObject);
         }
 
         public void DeSpawn()

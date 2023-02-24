@@ -35,8 +35,6 @@ namespace Views
                 viewConfig.PointPerSegment - 1);
         }
 
-        private readonly LinkedList<SnakePartView> _linkedParts = new();
-
         public void Move(IReadOnlyList<Vector2Int> positions)
         {
             if (_sequences != null)
@@ -135,7 +133,7 @@ namespace Views
         }
 
         public void Destroy()
-        {
+            {
             Object.Destroy(_head.gameObject);
 
             foreach (var part in _parts)
@@ -144,14 +142,7 @@ namespace Views
             }
 
             _parts.Clear();
-
-            foreach (var part in _linkedParts)
-            {
-                _partsPool.DeSpawn(part);
             }
-
-            _linkedParts.Clear();
-        }
 
         public void EatAnimation()
         {

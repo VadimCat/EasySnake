@@ -139,12 +139,22 @@ namespace Presenters
 
         private async void Complete()
         {
+            Dispose();
+
             _audioService.PlaySfxAsync(SoundNamesCollection.SnakeCollision);
             _head.SwitchState(HeadState.Collision);
             await UniTask.Delay(1000);
             _audioService.PlaySfxAsync(SoundNamesCollection.WinScreenShow);
 
             LevelCompleted?.Invoke();
+
+            _snakeGameView = null;
+            _foodContainerView = null;
+            _snakeView = null;
+        }
+
+        private void Dispose()
+        {
             Model.FoodSpawn -= _foodContainerView.SpawnFood;
             Model.FoodDeSpawn -= HandleFoodDespawn;
             Model.SnakeMove -= HandleSnakeMove;
@@ -157,10 +167,6 @@ namespace Presenters
             _gameScreen.FieldClick -= Model.HandleFieldClick;
             _gameScreen.PauseClick -= Model.HandlePauseClick;
             _gameScreen.PlayClick -= Model.HandlePlayClick;
-
-            _snakeGameView = null;
-            _foodContainerView = null;
-            _snakeView = null;
         }
 
         private void SetHighScore()

@@ -169,6 +169,7 @@ namespace Models
                 }
                 catch (IndexOutOfRangeException e)
                 {
+                    Debug.LogWarning("Path is out of range");
                     return new List<Vector2Int>();
                 }
             }

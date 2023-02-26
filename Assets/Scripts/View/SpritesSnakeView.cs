@@ -11,6 +11,7 @@ namespace Views
     {
         private readonly Pool<SnakePartView> _partsPool;
         private readonly List<SnakePartView> _parts;
+        private readonly Queue<SnakePartView> _foodAnimationParts;
         private readonly PositionProvider _positionProvider;
         private readonly SpriteSnakeViewConfig _viewConfig;
         private readonly Head _head;
@@ -33,6 +34,7 @@ namespace Views
 
             _parts = new List<SnakePartView>(positionProvider.Size.x * positionProvider.Size.y *
                 viewConfig.PointPerSegment - 1);
+            _foodAnimationParts = new Queue<SnakePartView>();
         }
 
         public void Move(IReadOnlyList<Vector2Int> positions)
@@ -133,7 +135,7 @@ namespace Views
         }
 
         public void Destroy()
-            {
+        {
             Object.Destroy(_head.gameObject);
 
             foreach (var part in _parts)
@@ -141,12 +143,19 @@ namespace Views
                 _partsPool.DeSpawn(part);
             }
 
-            _parts.Clear();
+            foreach (var part in _foodAnimationParts)
+            {
+                _partsPool.DeSpawn(part);
             }
+
+            _parts.Clear();
+            _foodAnimationParts.Clear();
+        }
 
         public void EatAnimation()
         {
             var foodBall = _partsPool.Spawn();
+             _foodAnimationParts.Enqueue(foodBall);
 
             foodBall.SetLayer(_parts.Count - 1)
                 .SetInnerSpriteScale(_viewConfig.NormalizedPartScale * _positionProvider._cellSize);
@@ -159,7 +168,13 @@ namespace Views
                     foodBall.transform.position = _parts[(int)pos].transform.position;
                     foodBall.SetColor(_parts[(int)pos].GetColor());
                 }, _parts.Count, 2f)
-                .OnComplete(() => foodBall.DeSpawn());
+                .OnComplete(FinishEatAnimationCallback);
+
+        }
+        private void FinishEatAnimationCallback()
+        { 
+            var foodBall = _foodAnimationParts.Dequeue();
+            foodBall.DeSpawn();
         }
     }
 

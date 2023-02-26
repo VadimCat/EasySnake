@@ -87,6 +87,7 @@ namespace Presenters
             SetHighScore();
             
             _screenStateMachine.Enter<PrepareGameScreenState>();
+            if (_leaderboard.GetHighRecord() == 0) _gameScreen.HideHighRecord();
         }
 
         private void OnDirectionChange(Vector2Int obj)
@@ -116,6 +117,15 @@ namespace Presenters
 
             _gameScreen.ShowPointsTip(pos);
             _gameScreen.SetScore(score);
+            HandleHighScoreUpdate(score);
+        }
+
+        private void HandleHighScoreUpdate(int score)
+        {
+            var highRecord = _leaderboard.GetHighRecord();
+            if(highRecord == 0) return;
+            if(highRecord < score)
+                _gameScreen.SetHighScore(score);
         }
 
         private void HandleStateChanged(GameState newState, GameState prevState)

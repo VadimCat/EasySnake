@@ -32,7 +32,8 @@ namespace Presenters.States
             var screen = await screenNavigator.PushScreen<LevelCompletedScreen>();
             _leaderboard.Load();
             var oldRecord = _leaderboard.Records;
-            _leaderboard.AddRecord("You", payload.Level.Score);
+            if (payload.Level.Score != 0)
+                _leaderboard.AddRecord("You", payload.Level.Score);
             screen.ShowRecords(_leaderboard.Records, oldRecord, payload.Level.Score);
             screen.ClickNext += ClickNext;
         }

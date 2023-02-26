@@ -25,6 +25,7 @@ namespace Views.Screens
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private PoolableImage scoreIncTipPrefab;
         [SerializeField] private Image overlay;
+        [SerializeField] private GameObject highScoreContainer;
 
         private Pool<PoolableImage> scoreTipsPool;
         private StateMachine gameScreenStateMachine;
@@ -101,6 +102,11 @@ namespace Views.Screens
             tipText.DOFade(0, time);
         }
 
+        public void HideHighRecord()
+        {
+            highScoreContainer.SetActive(false);
+        }
+        
         private void FirePauseClick()
         {
             PauseClick?.Invoke();

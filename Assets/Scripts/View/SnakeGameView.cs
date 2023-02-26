@@ -8,6 +8,7 @@ namespace Views
     {
         [SerializeField] private Head head;
         [SerializeField] private SpriteSnakeViewConfig snakeViewConfig;
+        [SerializeField] private SnakeFoodAnimationConfig snakeFoodAnimationConfig;
         [SerializeField] private SpriteRenderer oddCell;
         [SerializeField] private RectTransform fieldImage;
 
@@ -26,10 +27,11 @@ namespace Views
             PositionProvider positionProvider)
         {
             _foodContainerView = new FoodContainerView(foodPool, positionProvider);
-            _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, snakeViewConfig, head);
+            _spriteSpritesSnakeView = new SpritesSnakeView(partsPool, positionProvider, snakeViewConfig,
+                snakeFoodAnimationConfig, head);
 
             fieldImage.sizeDelta = positionProvider.fieldImageSize;
-            
+
             for (int i = 0; i < fieldSize.x; i++)
             {
                 for (int j = 0; j < fieldSize.y; j++)

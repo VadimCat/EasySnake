@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708985, g: 0.3783704, b: 0.35722548, a: 1}
+  m_IndirectSpecularColor: {r: 0.3709941, g: 0.3785282, b: 0.35739636, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -572,6 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 4009209518262042669}
   snakeViewConfig: {fileID: 11400000, guid: 07efdad55bb8ea44cb9a75c4e03da744, type: 2}
+  snakeFoodAnimationConfig: {fileID: 11400000, guid: bb8b0b35c08c74005a60a95c830cc349, type: 2}
   oddCell: {fileID: 6124773786103968104, guid: 636ae785b9ff3364a8e0fb9c1915491c, type: 3}
   fieldImage: {fileID: 1892965474}
 --- !u!1 &1117408316625540

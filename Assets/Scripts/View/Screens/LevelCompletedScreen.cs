@@ -77,9 +77,9 @@ namespace Views
 
         private bool IsNewBestScoreMustBeShow(IReadOnlyList<(string, int)> lastRecord, int score)
         {
-            if (lastRecord.Count == 1 || lastRecord[0].Item2 < score)
-                return true;
-            return false;
+            if (lastRecord.Count == 0)
+                return false;
+            return  (lastRecord.Count == 1 || lastRecord[0].Item2 < score);
         }
     }
 }

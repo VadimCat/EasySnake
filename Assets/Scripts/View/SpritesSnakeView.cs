@@ -14,6 +14,7 @@ namespace Views
         private readonly Queue<SnakePartView> _foodAnimationParts;
         private readonly PositionProvider _positionProvider;
         private readonly SpriteSnakeViewConfig _viewConfig;
+        private readonly SnakeFoodAnimationConfig _snakeFoodAnimationConfig;
         private readonly Head _head;
 
         private Gradient colorGradient => _viewConfig.Gradient;
@@ -25,11 +26,12 @@ namespace Views
         private List<Sequence> _sequences;
 
         public SpritesSnakeView(Pool<SnakePartView> pool, PositionProvider positionProvider,
-            SpriteSnakeViewConfig viewConfig, Head head)
+            SpriteSnakeViewConfig viewConfig, SnakeFoodAnimationConfig snakeFoodAnimationConfig, Head head)
         {
             _partsPool = pool;
             _positionProvider = positionProvider;
             _viewConfig = viewConfig;
+            _snakeFoodAnimationConfig = snakeFoodAnimationConfig;
             _head = head;
 
             _parts = new List<SnakePartView>(positionProvider.Size.x * positionProvider.Size.y *
@@ -155,24 +157,27 @@ namespace Views
         public void EatAnimation()
         {
             var foodBall = _partsPool.Spawn();
-             _foodAnimationParts.Enqueue(foodBall);
+            _foodAnimationParts.Enqueue(foodBall);
 
             foodBall.SetLayer(_parts.Count - 1)
                 .SetInnerSpriteScale(_viewConfig.NormalizedPartScale * _positionProvider._cellSize);
-            foodBall.transform.localScale *= 1.2f;
 
+            foodBall.transform.position = _parts[0].transform.position;
+            foodBall.transform.localScale *= 1.2f;
+            float duration = _parts.Count / _snakeFoodAnimationConfig.AnimationSpeedFactor;
             float pos = 0;
             DOTween.To(() => pos, (newPos) =>
                 {
                     pos = newPos;
-                    foodBall.transform.position = _parts[(int)pos].transform.position;
+                    foodBall.transform.DOMove(_parts[(int)pos].transform.position, duration / _parts.Count);
+                    // foodBall.transform.position = _parts[(int)pos].transform.position;
                     foodBall.SetColor(_parts[(int)pos].GetColor());
-                }, _parts.Count, 2f)
+                }, _parts.Count, duration)
                 .OnComplete(FinishEatAnimationCallback);
-
         }
+
         private void FinishEatAnimationCallback()
-        { 
+        {
             var foodBall = _foodAnimationParts.Dequeue();
             foodBall.DeSpawn();
         }

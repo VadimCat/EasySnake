@@ -95,9 +95,10 @@ namespace Models
             movement += Time.deltaTime * _speed * speedRate;
             while (movement >= 1)
             {
-                movement--;
+                int diff = (int)movement;
+                movement -= diff;
                 speedRate = 1;
-                MoveSnake();
+                MoveSnake(diff);
             }
         }
 
@@ -284,7 +285,7 @@ namespace Models
             _nextDirection = direction;
         }
 
-        private void MoveSnake()
+        private void MoveSnake(int dist)
         {
             var tale = snake.Last();
 
@@ -293,7 +294,7 @@ namespace Models
                 snake[i] = snake[i - 1];
             }
 
-            snake[0] += _nextDirection;
+            snake[0] += _nextDirection * dist;
             _direction = _nextDirection;
 
             if (snake[0].x == Size.x)

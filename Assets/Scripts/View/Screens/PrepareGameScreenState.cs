@@ -18,15 +18,15 @@ namespace Views.Screens
             _gameScreen.PauseButton.gameObject.SetActive(false);
             _gameScreen.PlayButton.gameObject.SetActive(false);
             _gameScreen.ShowHandTip(true);
-            _gameScreen.ShowTextTip("Tap to start!");
+            _gameScreen.ShowTextTip("TAP TO START");
             return UniTask.CompletedTask;
         }
         
         public UniTask Exit()
         {
             _gameScreen.ShowHandTip(false);
-            _gameScreen.ShowTextTip("Tap to turn!");
-            _gameScreen.HideTextTip(5);
+            _gameScreen.ShowTextTip("TAP TO TURN");
+            _gameScreen.HideTextTip(1);
             return UniTask.CompletedTask;
         }
     }

@@ -59,7 +59,16 @@ namespace Views.Screens
             fieldButton.onClick.AddListener(FireFieldClick);
         }
 
+        public void ToggleFieldButtonInteraction(bool isInteractable)
+        {
+            fieldButton.interactable = isInteractable;
+        }
 
+        public void TogglePauseButtonInteraction(bool isInteractable)
+        {
+            pauseButton.interactable = isInteractable;
+        }
+        
         public async Task ShowPointsTip(Vector3 pos)
         {
             var image = scoreTipsPool.Spawn(pos, parent: transform, isWorldSpace: true);
@@ -105,6 +114,23 @@ namespace Views.Screens
         public void HideHighRecord()
         {
             highScoreContainer.SetActive(false);
+        }
+
+        public async UniTask AwaitFieldClick()
+        {
+            UniTaskCompletionSource completionSource = new UniTaskCompletionSource();
+            
+            FieldClick += Complete;
+            
+            await completionSource.Task;
+
+            FieldClick -= Complete;
+
+            
+            void Complete()
+            {
+                completionSource.TrySetResult();
+            }
         }
         
         private void FirePauseClick()

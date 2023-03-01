@@ -19,6 +19,7 @@ namespace Presenters
     public class LevelPresenter
     {
         public Level Model { get; }
+        public GameScreen GameScreen => _gameScreen;
 
         public event Action LevelCompleted;
 

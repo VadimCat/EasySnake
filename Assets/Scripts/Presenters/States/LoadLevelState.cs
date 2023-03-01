@@ -1,16 +1,20 @@
-﻿using Client;
+﻿using System.Numerics;
+using Client;
 using Cysharp.Threading.Tasks;
 using Ji2.CommonCore;
 using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Ji2Core.Scripts.CommonCore;
+using Ji2.Presenters.Tutorial;
 using Ji2Core.Core;
 using Ji2Core.Core.Audio;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
 using Models;
+using Presenters.Tutorials;
 using UI.Background;
 using UI.Screens;
+using UnityEngine;
 using Views;
 using Analytics = Ji2.Models.Analytics.Analytics;
 
@@ -27,13 +31,14 @@ namespace Presenters.States
         private readonly BackgroundService backgroundService;
         private readonly LevelConfig _levelConfig;
         private readonly LevelsLoopProgress _levelsLoopProgress;
+        private readonly TutorialService _tutorialService;
 
         private LoadingScreen loadingScreen;
         private LevelData levelData;
 
         public LoadLevelState(Context context, StateMachine stateMachine, SceneLoader sceneLoader,
             ScreenNavigator screenNavigator, BackgroundService backgroundService, LevelConfig levelConfig,
-            LevelsLoopProgress levelsLoopProgress)
+            LevelsLoopProgress levelsLoopProgress, TutorialService tutorialService)
         {
             this.context = context;
             this.stateMachine = stateMachine;
@@ -42,6 +47,7 @@ namespace Presenters.States
             this.backgroundService = backgroundService;
             _levelConfig = levelConfig;
             _levelsLoopProgress = levelsLoopProgress;
+            _tutorialService = tutorialService;
         }
 
         public async UniTask Enter(LoadLevelStatePayload payload)
@@ -70,10 +76,20 @@ namespace Presenters.States
 
         private GameStatePayload BuildLevel()
         {
-            var level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
-                context.GetService<Analytics>(), _levelsLoopProgress.GetNextLevelData(), context.SaveDataContainer,
-                context.GetService<AudioService>());
-
+            Level level;
+            //TODO: Bind Create and bind factory on initialize
+            if (!_tutorialService.CheckTutorialStep<InitialTutorialState>())
+            {
+                level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
+                    context.GetService<Analytics>(), _levelsLoopProgress.GetNextLevelData(), context.SaveDataContainer, 
+                    new Vector2Int(1, 3));
+            }
+            else
+            {
+                level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
+                    context.GetService<Analytics>(), _levelsLoopProgress.GetNextLevelData(), context.SaveDataContainer);
+            }
+            
             var snakeView = context.GetService<SnakeGameView>();
 
             LevelPresenter levelPresenter =

@@ -6,7 +6,6 @@ using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Models;
 using Ji2.Models.Analytics;
 using Ji2.Utils;
-using Ji2Core.Core.Audio;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -49,7 +48,7 @@ namespace Models
         public event Action<Vector2Int> DirectionChange;
 
         public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
-            LevelData levelData, ISaveDataContainer saveDataContainer, AudioService audioService)
+            LevelData levelData, ISaveDataContainer saveDataContainer)
             : base(analytics, levelData, saveDataContainer)
         {
             _updateService = updateService;
@@ -68,6 +67,28 @@ namespace Models
             }
 
             SpawnFood();
+        }
+
+        public Level(UpdateService updateService, Vector2Int size, float speed, Analytics analytics,
+            LevelData levelData, ISaveDataContainer saveDataContainer, Vector2Int foodPos)
+            : base(analytics, levelData, saveDataContainer)
+        {
+            _updateService = updateService;
+            _speed = speed;
+            Size = size;
+
+            fieldPoints = new HashSet<Vector2Int>(size.x * size.y);
+            snake = new() { new(size.x / 2, size.y / 2), new(size.x / 2 - 1, size.y / 2) };
+
+            for (int i = 0; i < size.x; i++)
+            {
+                for (int j = 0; j < size.y; j++)
+                {
+                    fieldPoints.Add(new Vector2Int(i, j));
+                }
+            }
+
+            SpawnFood(foodPos);
         }
 
         private void Start()
@@ -90,6 +111,18 @@ namespace Models
             _updateService.Remove(this);
         }
 
+        public void TogglePause(bool isPause)
+        {
+            if (isPause)
+            {
+                _updateService.Remove(this);
+            }
+            else
+            {
+                _updateService.Add(this);
+            }                
+        }
+        
         public void OnFixedUpdate()
         {
             movement += Time.deltaTime * _speed * speedRate;
@@ -345,6 +378,12 @@ namespace Models
             var newPos = spawnPoints[Random.Range(0, spawnPoints.Length)];
             food.Add(newPos);
             FoodSpawn?.Invoke(newPos);
+        }
+
+        private void SpawnFood(Vector2Int spawnPos)
+        {
+            food.Add(spawnPos);
+            FoodSpawn?.Invoke(spawnPos);
         }
 
         public void HandleFieldClick()

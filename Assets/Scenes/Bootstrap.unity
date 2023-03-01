@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &876090600 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6789311135984651664, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+  m_PrefabInstance: {fileID: 907379512993701660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033020dda261407448abb094cb86a62e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1538337834 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 907379513472099783, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
@@ -166,6 +177,10 @@ PrefabInstance:
       propertyPath: levelConfig
       value: 
       objectReference: {fileID: 11400000, guid: 5690b89b24b8f154f9452dfd2ab5f858, type: 2}
+    - target: {fileID: 907379513116661681, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: tutorialPointerView
+      value: 
+      objectReference: {fileID: 876090600}
     - target: {fileID: 907379513116661682, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -258,9 +273,21 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3019718106670722841, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e7409ca005a208646ad1c4a20bc03e1f, type: 3}
     - target: {fileID: 3653260881436310959, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: ApiKey
       value: 05a0e1b5-f68a-4115-a7d8-7e69756dd86c
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933100056700711124, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 201
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933100056700711124, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 280
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}

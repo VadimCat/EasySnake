@@ -24,11 +24,11 @@ namespace Presenters.States
             var screenNavigator = context.ScreenNavigator;
             var dict = new Dictionary<Type, IExitableState>();
 
-            dict[typeof(InitialState)] = new InitialState(stateMachine, screenNavigator, context.SaveDataContainer);
+            dict[typeof(InitialState)] = new InitialState(stateMachine, screenNavigator, context.SaveDataContainer, context.GetService<TutorialService>());
 
             dict[typeof(LoadLevelState)] = new LoadLevelState(context, stateMachine, context.SceneLoader(),
                 screenNavigator, context.GetService<BackgroundService>(), context.GetService<LevelConfig>(),
-                new LevelsLoopProgress(context.SaveDataContainer, new []{""}));
+                new LevelsLoopProgress(context.SaveDataContainer, new []{""}), context.GetService<TutorialService>());
 
             dict[typeof(GameState)] = new GameState(stateMachine, screenNavigator);
 

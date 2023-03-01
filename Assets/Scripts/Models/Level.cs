@@ -330,22 +330,22 @@ namespace Models
             snake[0] += _nextDirection * dist;
             _direction = _nextDirection;
 
-            if (snake[0].x == Size.x)
+            if (snake[0].x >= Size.x)
             {
                 OnComplete();
                 return;
             }
-            else if (snake[0].x == -1)
+            else if (snake[0].x <= -1)
             {
                 OnComplete();
                 return;
             }
-            else if (snake[0].y == Size.y)
+            else if (snake[0].y >= Size.y)
             {
                 OnComplete();
                 return;
             }
-            else if (snake[0].y == -1)
+            else if (snake[0].y <= -1)
             {
                 OnComplete();
                 return;

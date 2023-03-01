@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Ji2.Utils;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.States;
 using Ji2Core.UI.Screens;
@@ -17,16 +18,16 @@ namespace Views.Screens
         [SerializeField] private Button playButton;
 
         [SerializeField] private Button fieldButton;
-
-        [SerializeField] private Image handTip;
-
+        
         [SerializeField] private TMP_Text score;
         [SerializeField] private TMP_Text highScore;
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private PoolableImage scoreIncTipPrefab;
         [SerializeField] private Image overlay;
         [SerializeField] private GameObject highScoreContainer;
-
+        [SerializeField] private Transform scoreImage;
+        [SerializeField] private Transform highScoreImage;
+        
         private Pool<PoolableImage> scoreTipsPool;
         private StateMachine gameScreenStateMachine;
 
@@ -85,19 +86,16 @@ namespace Views.Screens
             scoreTipsPool.DeSpawn(image);
         }
 
-        public void ShowHandTip(bool isEnabled)
-        {
-            handTip.DOFade(isEnabled ? 1 : 0, 1f);
-        }
-
         public void SetScore(int score)
         {
             this.score.text = score.ToString();
+            scoreImage.DoPulseScale(1.2f, 0.2f, gameObject, loops: 2);
         }
 
         public void SetHighScore(int value)
         {
             highScore.text = value.ToString();
+            highScoreImage.DoPulseScale(1.2f, 0.2f, gameObject, loops: 2);
         }
 
         public void ShowTextTip(string text)

@@ -1509,10 +1509,11 @@ MonoBehaviour:
   pauseButton: {fileID: 2795479322460021471}
   playButton: {fileID: 2065666403250745802}
   fieldButton: {fileID: 4451949954352536706}
-  handTip: {fileID: 152690586528898718}
   score: {fileID: 814759269748938385}
   highScore: {fileID: 392170050716496264}
   tipText: {fileID: 8618507507932887460}
   scoreIncTipPrefab: {fileID: 9174365152743084735, guid: 01d74fa7ca9dd0d4a8bbca604a6748c0, type: 3}
   overlay: {fileID: 7147592521486870851}
   highScoreContainer: {fileID: 4554036794143467536}
+  scoreImage: {fileID: 2441336510982561396}
+  highScoreImage: {fileID: 7796441687372330415}

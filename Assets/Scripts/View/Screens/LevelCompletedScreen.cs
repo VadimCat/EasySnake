@@ -21,6 +21,8 @@ namespace Views
         [SerializeField] private GameObject yourScore;
         [SerializeField] private List<Sprite> cupIcons;
 
+        [SerializeField] private ParticleSystem[] highScoreParticleSystem;
+
         public event Action ClickNext;
 
         private void Awake()
@@ -67,6 +69,10 @@ namespace Views
         {
             if (IsNewBestScoreMustBeShow(oldRecord, score))
             {
+                foreach (var vfx in highScoreParticleSystem)
+                {
+                    vfx.Play();
+                }
                 newBestScore.SetActive(true);
             }
             else

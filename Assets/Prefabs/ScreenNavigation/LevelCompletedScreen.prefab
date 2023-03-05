@@ -1671,6 +1671,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 100.644
       objectReference: {fileID: 0}
+    - target: {fileID: 5622669355344559827, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6280507400751104716, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910812380191308549, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815341701736891651, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
 --- !u!224 &958903047092016098 stripped
@@ -1690,6 +1706,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8759322470126098184}
     m_Modifications:
+    - target: {fileID: 1802820856892278504, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528741800890031981, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3688841372377737135, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1774,9 +1798,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 100.644
       objectReference: {fileID: 0}
+    - target: {fileID: 6182899842220114534, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7751154824484221159, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: m_Name
       value: VFXConfettiExplosion_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588425964612946208, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}

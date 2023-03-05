@@ -82,7 +82,7 @@ namespace Presenters.States
             {
                 level = new Level(context.GetService<UpdateService>(), _levelConfig.Size, _levelConfig.Speed,
                     context.GetService<Analytics>(), _levelsLoopProgress.GetNextLevelData(), context.SaveDataContainer, 
-                    new Vector2Int(1, 3));
+                    new Vector2Int(4, 3));
             }
             else
             {

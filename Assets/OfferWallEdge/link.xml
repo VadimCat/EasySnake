@@ -1,0 +1,5 @@
+<linker>
+	<assembly fullname="OfferWallEdge">
+		<namespace fullname="FyberPlugin" preserve="all"/>
+	</assembly>
+</linker>

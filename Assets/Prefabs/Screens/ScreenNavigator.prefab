@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6669128334661287241}
   - component: {fileID: 6669128334661287242}
   - component: {fileID: 6669128334661287243}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScreenNavigator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,3 +117,5 @@ MonoBehaviour:
   screens:
   - {fileID: 8759322470126098185, guid: 3dc1b17ad67f19643aab6410707372b4, type: 3}
   - {fileID: 2673282795225721937, guid: 0db53ec22eaa4b744aa54b0f275cee19, type: 3}
+  transform: {fileID: 0}
+  scaler: {fileID: 0}

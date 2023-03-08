@@ -246,8 +246,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3743704222689406043, guid: cb1d77be419926842818a7205a365258, type: 3}
     - target: {fileID: 907379513472099779, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 907379513472099779, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_SortingOrder
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 907379513472099782, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192557019172050, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192557019172062, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192558441815296, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 943192558441815296, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_IsActive
@@ -280,6 +300,10 @@ PrefabInstance:
     - target: {fileID: 3653260881436310959, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: ApiKey
       value: 05a0e1b5-f68a-4115-a7d8-7e69756dd86c
+      objectReference: {fileID: 0}
+    - target: {fileID: 5699398958212908604, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7933100056700711124, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_SizeDelta.x

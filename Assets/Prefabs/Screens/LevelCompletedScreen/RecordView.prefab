@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5221933271180895721}
   - component: {fileID: 4959096708075051699}
   - component: {fileID: 8298515960308456301}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RecordView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2296595518160623313}
   - component: {fileID: 7373168993019749520}
   - component: {fileID: 1139296745306773036}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 5504041014159870900}
   - component: {fileID: 5949415018618152551}
   - component: {fileID: 8711837345489579755}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 7113534996197843883}
   - component: {fileID: 8355668348820205581}
   - component: {fileID: 8118867667785041253}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 7790062785590354826}
   - component: {fileID: 5959860146779736030}
   - component: {fileID: 4404458367246136726}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 69418000068926665}
   - component: {fileID: 7792339781303657264}
   - component: {fileID: 7856252188683721920}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}

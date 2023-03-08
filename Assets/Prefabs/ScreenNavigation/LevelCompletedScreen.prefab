@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7061613052932776536}
   - component: {fileID: 2177779550059064168}
   - component: {fileID: 9087461881966778582}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 680228521169921064}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Footer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5258032402691963642}
   - component: {fileID: 2455553561297761751}
   - component: {fileID: 4516872244558065445}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 6191385207432864920}
   - component: {fileID: 5544411372068941966}
   - component: {fileID: 2304378294773285594}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Curernt Score Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 159386518053205458}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: VerticalLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2505542879260673008}
   - component: {fileID: 2991765408863178553}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4059807976578895558}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 3410689224210394825}
   - component: {fileID: 3621294930926059574}
   - component: {fileID: 2776632872001327260}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 4266666542637473791}
   - component: {fileID: 1759901012717102264}
   - component: {fileID: 4055980758903062489}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 2887795353249533195}
   - component: {fileID: 10837352254768754}
   - component: {fileID: 3093292596519621112}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewBestScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 6851820269485362175}
   - component: {fileID: 9168302587859715032}
   - component: {fileID: 6170042955289832664}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: YourScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1022,7 +1022,7 @@ GameObject:
   - component: {fileID: 1983250528954503985}
   - component: {fileID: 4489517858305992253}
   - component: {fileID: 6594864691747240971}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scoreboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1115,7 +1115,7 @@ GameObject:
   - component: {fileID: 9051428369260752622}
   - component: {fileID: 6606070837609440296}
   - component: {fileID: 9071308947114133711}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StarsShine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 4351708327280532084}
   - component: {fileID: 8314212816939561166}
   - component: {fileID: 7609837212443047425}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ribbon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1296,7 +1296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8759322470126098184}
   - component: {fileID: 8759322470126098185}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelCompletedScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1376,7 +1376,7 @@ GameObject:
   - component: {fileID: 8759322470351959483}
   - component: {fileID: 8759322470351959482}
   - component: {fileID: 8759322470351959481}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1497,7 +1497,7 @@ GameObject:
   - component: {fileID: 5683294664590876555}
   - component: {fileID: 4698066714130693403}
   - component: {fileID: 5853625306440998280}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1587,6 +1587,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFXConfettiExplosion_L
       objectReference: {fileID: 0}
+    - target: {fileID: 812400969643618024, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 919441261804931673, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1587763251847336156, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1671,21 +1679,109 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 100.644
       objectReference: {fileID: 0}
+    - target: {fileID: 2853034092406367521, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853034092406367521, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853034092406367521, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853034092406367521, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562799376105896607, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595480231305610919, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595480231305610919, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595480231305610919, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595480231305610919, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5622669355344559827, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622669355344559827, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6280507400751104716, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6280507400751104716, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6910812380191308549, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6910812380191308549, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955913190710865569, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955913190710865569, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955913190710865569, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955913190710865569, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448457635797086780, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504646940416195641, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504646940416195641, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504646940416195641, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504646940416195641, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8815341701736891651, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815341701736891651, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd66ff2ba3eb2a443a0c411ffa3e52a6, type: 3}
@@ -1706,13 +1802,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8759322470126098184}
     m_Modifications:
+    - target: {fileID: 409713149949026078, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 409713149949026078, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409713149949026078, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 409713149949026078, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1802820856892278504, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1802820856892278504, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2026321653129534297, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2528741800890031981, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528741800890031981, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3688841372377737135, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: m_Pivot.x
@@ -1798,17 +1922,85 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 100.644
       objectReference: {fileID: 0}
+    - target: {fileID: 4066489750695000774, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033759731857176987, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092755348551547382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092755348551547382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092755348551547382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092755348551547382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6182899842220114534, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182899842220114534, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519606879624297382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519606879624297382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519606879624297382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519606879624297382, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7751154824484221159, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: m_Name
       value: VFXConfettiExplosion_R
       objectReference: {fileID: 0}
+    - target: {fileID: 7751154824484221159, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8588425964612946208, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588425964612946208, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995619396816770669, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_SortMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995619396816770669, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995619396816770669, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995619396816770669, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4cfe5493a9f05d43aef0ec9b4db092b, type: 3}
@@ -1832,6 +2024,10 @@ PrefabInstance:
     - target: {fileID: 2131581396350597804, guid: 14c35057b4242424e9992f80b40e8fbb, type: 3}
       propertyPath: m_Name
       value: Separator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131581396350597804, guid: 14c35057b4242424e9992f80b40e8fbb, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4686996818025402077, guid: 14c35057b4242424e9992f80b40e8fbb, type: 3}
       propertyPath: m_Pivot.x

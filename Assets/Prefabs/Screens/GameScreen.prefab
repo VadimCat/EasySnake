@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2999606911455715142}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoresContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 4594800806423504294}
   - component: {fileID: 4329290424515395285}
   - component: {fileID: 392170050716496264}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HitghtScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 2441336510982561396}
   - component: {fileID: 656070466852748541}
   - component: {fileID: 4602482319875168761}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 7796441687372330415}
   - component: {fileID: 8171759570260795742}
   - component: {fileID: 9201687579252491981}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HitghtScoreImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5102941366629460787}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Footer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 8894749833600392173}
   - component: {fileID: 7764998274703866149}
   - component: {fileID: 4451949954352536706}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FieldButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 3765094916536489384}
   - component: {fileID: 7291943520020102247}
   - component: {fileID: 8618507507932887460}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TipText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1225699134060566289}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HightScoresContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 4418513064910623408}
   - component: {fileID: 5380245152308778421}
   - component: {fileID: 7147592521486870851}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 2893750778079898319}
   - component: {fileID: 2065666403250745802}
   - component: {fileID: 4091301114654856319}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 9085171404312896055}
   - component: {fileID: 2000812094022497362}
   - component: {fileID: 8709158799191665214}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6188110198002996205}
   - component: {fileID: 8141721047376798588}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1067,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 980653831730537175}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1107,7 @@ GameObject:
   - component: {fileID: 8062937768914732604}
   - component: {fileID: 7917811847477578942}
   - component: {fileID: 152690586528898718}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,7 +1185,7 @@ GameObject:
   - component: {fileID: 3533700998387225342}
   - component: {fileID: 2795479322460021471}
   - component: {fileID: 8159120694301319784}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1319,7 +1319,7 @@ GameObject:
   - component: {fileID: 1733995198461240425}
   - component: {fileID: 7015464978888946087}
   - component: {fileID: 814759269748938385}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1453,7 +1453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8759322470126098184}
   - component: {fileID: 3743704222689406043}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Facebook.Unity;
 using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Presenters.Tutorial;
+using Ji2Core.Ads;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
 using UI.Screens;
@@ -35,12 +36,12 @@ namespace Presenters.States
         public async UniTask Enter()
         {
             var facebookTask = LoadFb();
-
+            var adsProviderTask = new MaxSdkAdsProvider().InitializeAsync();
             saveDataContainer.Load();
             // levelsLoopProgress.Load();
 
             await screenNavigator.PushScreen<LoadingScreen>();
-            await facebookTask;
+            await UniTask.WhenAll(facebookTask, adsProviderTask);
 
             float fakeLoadingTime = 3;
 #if !UNITY_EDITOR
@@ -54,25 +55,19 @@ namespace Presenters.States
 
         private async UniTask LoadFb()
         {
-// #if UNITY_EDITOR
-//             await UniTask.CompletedTask;
-//             Debug.LogWarning("FB IS NOT SETTED");
-// #else 
-
             var taskCompletionSource = new UniTaskCompletionSource<bool>();
-            FB.Init(() => OnFbInitComplete(taskCompletionSource));
+            FB.Init(OnFbInitComplete);
 
             await taskCompletionSource.Task;
             if (!FB.IsInitialized)
             {
                 FB.ActivateApp();
             }
-// #endif
-        }
 
-        private void OnFbInitComplete(UniTaskCompletionSource<bool> uniTaskCompletionSource)
-        {
-            uniTaskCompletionSource.TrySetResult(FB.IsInitialized);
+            void OnFbInitComplete()
+            {
+                taskCompletionSource.TrySetResult(FB.IsInitialized);
+            }
         }
     }
 }

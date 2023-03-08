@@ -9,7 +9,7 @@ namespace Views
         [SerializeField] private Head head;
         [SerializeField] private SpriteSnakeViewConfig snakeViewConfig;
         [SerializeField] private SnakeFoodAnimationConfig snakeFoodAnimationConfig;
-        [SerializeField] private SpriteRenderer oddCell;
+        [SerializeField] private GameObject oddCell;
         [SerializeField] private RectTransform fieldImage;
 
 

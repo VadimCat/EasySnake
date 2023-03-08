@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1636620986077585507}
   - component: {fileID: 3138764702890543217}
   - component: {fileID: 2163638032303500142}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7273016436270802440}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5139686767743775496}
   - component: {fileID: 662844203354916023}
   - component: {fileID: 6575446617146124623}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 8483740117940251599}
   - component: {fileID: 2401319104987343465}
   - component: {fileID: 8410782083680126355}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 7318926760249149756}
   - component: {fileID: 5571338014651854831}
   - component: {fileID: 250836814359762490}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 5961237212894871699}
   - component: {fileID: 5419401458231139528}
   - component: {fileID: 1008270941054072006}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 4436129399113836516}
   - component: {fileID: 4389151820388471377}
   - component: {fileID: 1336320545649700268}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SliderProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -93,7 +93,6 @@ namespace Presenters.Tutorials
             _model.TogglePause(true);
             PlayClickAnimation();
             _screen.ToggleFieldButtonInteraction(true);
-            _screen.ShowTextTip("TAP TO TURN");
         }
 
         private void DisableTip()

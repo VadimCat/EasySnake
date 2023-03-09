@@ -253,6 +253,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 907379513472099779, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 907379513472099782, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -260,6 +264,14 @@ PrefabInstance:
     - target: {fileID: 943192557019172050, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192557019172062, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 943192557019172062, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 943192557019172062, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

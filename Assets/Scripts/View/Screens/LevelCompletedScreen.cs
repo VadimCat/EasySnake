@@ -46,11 +46,9 @@ namespace Views
             ClickNext = null;
         }
 
-        public void ShowRecords(IReadOnlyList<(string, int)> leaderboardRecords, IReadOnlyList<(string, int)> oldRecord,
-            int score)
+        public void ShowRecords(IReadOnlyList<(string, int)> leaderboardRecords, int score)
         {
             currentScore.text = score.ToString();
-            SetScoreObject(oldRecord, score);
 
             for (var i = 0; i < leaderboardRecords.Count; i++)
             {
@@ -65,27 +63,21 @@ namespace Views
             }
         }
 
-        private void SetScoreObject(IReadOnlyList<(string, int)> oldRecord, int score)
+        public void SetScoreObject(bool isNewBestScore)
         {
-            if (IsNewBestScoreMustBeShow(oldRecord, score))
+            if (isNewBestScore)
             {
                 foreach (var vfx in highScoreParticleSystem)
                 {
                     vfx.Play();
                 }
+
                 newBestScore.SetActive(true);
             }
             else
             {
                 yourScore.SetActive(true);
             }
-        }
-
-        private bool IsNewBestScoreMustBeShow(IReadOnlyList<(string, int)> lastRecord, int score)
-        {
-            if (lastRecord.Count == 0)
-                return false;
-            return  (lastRecord.Count == 1 || lastRecord[0].Item2 < score);
         }
     }
 }

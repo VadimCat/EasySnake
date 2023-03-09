@@ -17,15 +17,17 @@ namespace Presenters.States
         private readonly LevelsLoopProgress levelsLoopProgress;
         private readonly ISaveDataContainer saveDataContainer;
         private readonly TutorialService _tutorialService;
+        private readonly IAdsProvider _adsProvider;
 
 
         public InitialState(StateMachine stateMachine, ScreenNavigator screenNavigator,
-            ISaveDataContainer saveDataContainer, TutorialService tutorialService)
+            ISaveDataContainer saveDataContainer, TutorialService tutorialService, IAdsProvider adsProvider)
         {
             this.stateMachine = stateMachine;
             this.screenNavigator = screenNavigator;
             this.saveDataContainer = saveDataContainer;
             _tutorialService = tutorialService;
+            _adsProvider = adsProvider;
         }
 
         public async UniTask Exit()
@@ -36,7 +38,7 @@ namespace Presenters.States
         public async UniTask Enter()
         {
             var facebookTask = LoadFb();
-            var adsProviderTask = new MaxSdkAdsProvider().InitializeAsync();
+            var adsProviderTask = _adsProvider.InitializeAsync();
             saveDataContainer.Load();
             // levelsLoopProgress.Load();
 

@@ -5,6 +5,7 @@ using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Models.Analytics;
 using Ji2.Presenters.Tutorial;
 using Ji2.UI;
+using Ji2Core.Ads;
 using Ji2Core.Core;
 using Ji2Core.Core.Audio;
 using Ji2Core.Core.Pools;
@@ -55,6 +56,7 @@ namespace Presenters
             InstallSceneLoader();
             InstallCompliments();
             InstallBackgrounds();
+            InstallAds();
 
             var appStateMachine = InstallStateMachine();
             InstallTutorial();
@@ -66,6 +68,16 @@ namespace Presenters
 
 
             StartApp(appStateMachine);
+        }
+
+        private void InstallAds()
+        {
+
+#if UNITY_EDITOR
+            context.Register<IAdsProvider>(new StubAdsProvider());
+#else
+            context.Register<IAdsProvider>(new MaxSdkAdsProvider());
+#endif
         }
 
         private void InstallTutorial()

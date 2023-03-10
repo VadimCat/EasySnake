@@ -58,7 +58,7 @@ namespace Presenters.Tutorials
 
 
             await UniTask.WaitWhile(() => _model.State.Value == Models.GameState.Prepare);
-
+            
             _screen.ToggleFieldButtonInteraction(false);
             _pointer.Hide();
             Cancel();
@@ -90,6 +90,7 @@ namespace Presenters.Tutorials
 
         private void EnableTip()
         {
+            _screen.ShowTextTip("TAP TO TURN");
             _model.TogglePause(true);
             PlayClickAnimation();
             _screen.ToggleFieldButtonInteraction(true);

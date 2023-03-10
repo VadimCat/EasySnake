@@ -17,7 +17,6 @@ namespace Views.Screens
             _gameScreen.Overlay.gameObject.SetActive(false);
             _gameScreen.PauseButton.gameObject.SetActive(false);
             _gameScreen.PlayButton.gameObject.SetActive(false);
-            _gameScreen.ShowTextTip("Tap to start!");
             _gameScreen.ShowTextTip("TAP TO START");
             return UniTask.CompletedTask;
         }

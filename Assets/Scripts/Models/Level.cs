@@ -120,13 +120,13 @@ namespace Models
             else
             {
                 _updateService.Add(this);
-            }                
+            }
         }
-        
+
         public void OnFixedUpdate()
         {
             movement += Time.deltaTime * _speed * speedRate;
-            while (movement >= 1)
+            if (movement >= 1)
             {
                 int diff = (int)movement;
                 movement -= diff;
@@ -163,8 +163,13 @@ namespace Models
 
                 if (pathes.Count > 0)
                 {
-                    var direction = pathes.FirstOrDefault(el => el - headPos != _direction);
-                    ChangeDirection(direction - headPos);
+                    int ind = pathes.FindIndex(el => el - headPos != _direction);
+                    if (ind == -1)
+                    {
+                        ind = 0;
+                    }
+                    
+                    ChangeDirection(pathes[ind] - headPos);
                 }
             }
         }
@@ -213,11 +218,13 @@ namespace Models
 
             Vector2Int checkPoint = new Vector2Int(-1, -1);
 
-            poses.Add(new List<Vector2Int>() { start });
+            poses.Add(new List<Vector2Int> { start });
 
-            int weight = 2;
+            int weight = 1;
+            //fill cell with weights
             while (checkPoint != target && poses[^1].Count != 0)
             {
+                weight++;
                 var lastPointsList = poses[^1];
                 var newPoints = new List<Vector2Int>();
                 poses.Add(newPoints);
@@ -237,6 +244,7 @@ namespace Models
 
                         checkPoint = t + direction;
 
+                        //skip out of range
                         if (checkPoint.x < 0 || checkPoint.x >= Size.x || checkPoint.y < 0 || checkPoint.y >= Size.y)
                         {
                             continue;
@@ -255,9 +263,6 @@ namespace Models
                     if (checkPoint == target)
                         break;
                 }
-
-                if (checkPoint != target)
-                    weight++;
             }
 
 
@@ -286,7 +291,7 @@ namespace Models
                         var prevPoint = point + direction;
 
                         if (prevPoint.x < 0 || prevPoint.x >= Size.x || prevPoint.y < 0 || prevPoint.y >= Size.y ||
-                            newPoints.Contains(prevPoint) || newPoints.Contains(prevPoint))
+                            newPoints.Contains(prevPoint))
                         {
                             continue;
                         }
@@ -301,6 +306,8 @@ namespace Models
                 endpoints = newPoints;
             }
 
+            endpoints.Remove(checkPoint);
+            
             return endpoints;
         }
 
@@ -309,10 +316,11 @@ namespace Models
             direction.Clamp(min, max);
             if (_direction == direction)
             {
-                speedRate = 2;
+                speedRate = 3;
             }
             else
             {
+                speedRate = 2;
                 DirectionChange?.Invoke(direction);
             }
 

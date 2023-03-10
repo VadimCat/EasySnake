@@ -306,6 +306,7 @@ namespace Models
 
         private void ChangeDirection(Vector2Int direction)
         {
+            direction.Clamp(min, max);
             if (_direction == direction)
             {
                 speedRate = 2;

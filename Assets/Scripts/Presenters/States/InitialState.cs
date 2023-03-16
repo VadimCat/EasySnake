@@ -3,9 +3,11 @@ using Cysharp.Threading.Tasks;
 using Facebook.Unity;
 using Ji2.CommonCore.SaveDataContainer;
 using Ji2.Presenters.Tutorial;
+using Ji2Core;
 using Ji2Core.Ads;
 using Ji2Core.Core.ScreenNavigation;
 using Ji2Core.Core.States;
+using SRDebugger;
 using UI.Screens;
 
 namespace Presenters.States
@@ -35,8 +37,12 @@ namespace Presenters.States
             await screenNavigator.CloseScreen<LoadingScreen>();
         }
 
+        private readonly MaxSdkCheats _cheats = new MaxSdkCheats();
+
         public async UniTask Enter()
-        {
+        {            
+            SRDebug.Instance.AddOptionContainer(_cheats);
+
             var facebookTask = LoadFb();
             var adsProviderTask = _adsProvider.InitializeAsync();
             saveDataContainer.Load();
@@ -50,7 +56,7 @@ namespace Presenters.States
             fakeLoadingTime = 5;
 #endif
             _tutorialService.TryRunSteps();
-            
+        
             stateMachine.Enter<LoadLevelState, LoadLevelStatePayload>(
                 new LoadLevelStatePayload(fakeLoadingTime));
         }

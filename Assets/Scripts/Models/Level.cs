@@ -14,6 +14,12 @@ namespace Models
     public class Level : LevelBase, IFixedUpdatable
     {
         private readonly UpdateService _updateService;
+
+        public readonly Cooldown Cooldown;
+        
+        private readonly Vector2Int min = new(-1, -1);
+        private readonly Vector2Int max = new(1, 1);
+        
         private readonly float _speed;
         private int _score;
         private Vector2Int _direction = Vector2Int.right;
@@ -22,8 +28,6 @@ namespace Models
         private readonly HashSet<Vector2Int> fieldPoints;
         private List<Vector2Int> snake;
 
-        private Vector2Int min = new(-1, -1);
-        private Vector2Int max = new(1, 1);
 
         public readonly Vector2Int Size;
 
@@ -55,6 +59,8 @@ namespace Models
             _speed = speed;
             Size = size;
 
+            Cooldown = new Cooldown(3, 3, 1, updateService);
+            
             fieldPoints = new HashSet<Vector2Int>(size.x * size.y);
             snake = new() { new(size.x / 2, size.y / 2), new(size.x / 2 - 1, size.y / 2) };
 
@@ -93,12 +99,14 @@ namespace Models
 
         private void Start()
         {
+            Cooldown.TogglePause(true);
             _updateService.Add(this);
             State.Value = GameState.Game;
         }
 
         private void Pause()
         {
+            Cooldown.TogglePause(false);
             _updateService.Remove(this);
             State.Value = GameState.Pause;
         }
@@ -109,6 +117,7 @@ namespace Models
 
             LogAnalyticsLevelFinish();
             _updateService.Remove(this);
+            Cooldown.TogglePause(false);
         }
 
         public void TogglePause(bool isPause)
@@ -147,7 +156,7 @@ namespace Models
             {
                 ChangeDirection(foodDirection);
             }
-            else
+            else if(Cooldown.TryUse())
             {
                 var pathes = TryFindPathWave(headPos, foodPos);
                 if (pathes.Count == 0)

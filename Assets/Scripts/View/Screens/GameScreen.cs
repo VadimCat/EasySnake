@@ -27,6 +27,9 @@ namespace Views.Screens
         [SerializeField] private GameObject highScoreContainer;
         [SerializeField] private Transform scoreImage;
         [SerializeField] private Transform highScoreImage;
+
+        [SerializeField] private CooldownView cooldown;
+        public CooldownView CooldownView => cooldown;
         
         private Pool<PoolableImage> scoreTipsPool;
         private StateMachine gameScreenStateMachine;

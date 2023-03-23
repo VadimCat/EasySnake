@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Client;
 using Cysharp.Threading.Tasks;
 using Ji2.Ji2Core.Scripts.CommonCore;
+using Ji2.Models;
 using Ji2Core.Core.Audio;
 using Ji2Core.Core.Pools;
 using Ji2Core.Core.ScreenNavigation;
@@ -72,6 +73,9 @@ namespace Presenters
         {
             _gameScreen = (GameScreen)_screenNavigator.CurrentScreen;
             _screenStateMachine = _gameScreen.GetStateMachine();
+            
+            CooldownPresenter cooldownPresenter = new CooldownPresenter(Model.Cooldown, _gameScreen.CooldownView);
+
             Model.FoodSpawn += _foodContainerView.SpawnFood;
             Model.FoodDeSpawn += HandleFoodDespawn;
             Model.SnakeMove += HandleSnakeMove;

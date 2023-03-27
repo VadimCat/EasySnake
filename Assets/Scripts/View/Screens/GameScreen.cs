@@ -73,7 +73,7 @@ namespace Views.Screens
             pauseButton.interactable = isInteractable;
         }
         
-        public async Task ShowPointsTip(Vector3 pos)
+        public async UniTask ShowPointsTip(Vector3 pos)
         {
             var image = scoreTipsPool.Spawn(pos, parent: transform, isWorldSpace: true);
             image.Image.color = new Color(1, 1, 1, 0);

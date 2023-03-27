@@ -27,7 +27,7 @@ namespace Models
         private float movement = 0;
         private readonly HashSet<Vector2Int> fieldPoints;
         private List<Vector2Int> snake;
-
+        private bool _showAds;
 
         public readonly Vector2Int Size;
 
@@ -44,6 +44,8 @@ namespace Models
 
         public Vector2Int Direction => _direction;
 
+        public bool ShowAds => _showAds;
+
         public float speedRate = 1;
 
         public event Action<Vector2Int> FoodSpawn;
@@ -59,6 +61,8 @@ namespace Models
             _speed = speed;
             Size = size;
 
+            _showAds = true;
+            
             Cooldown = new Cooldown(3, 3, 1, updateService);
             
             fieldPoints = new HashSet<Vector2Int>(size.x * size.y);
@@ -82,6 +86,8 @@ namespace Models
             _updateService = updateService;
             _speed = speed;
             Size = size;
+
+            _showAds = false;
 
             fieldPoints = new HashSet<Vector2Int>(size.x * size.y);
             snake = new() { new(size.x / 2, size.y / 2), new(size.x / 2 - 1, size.y / 2) };

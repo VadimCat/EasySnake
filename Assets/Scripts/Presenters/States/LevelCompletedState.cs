@@ -33,13 +33,18 @@ namespace Presenters.States
 
         public async UniTask Enter(LevelCompletedPayload payload)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            var adTask = _adsProvider.InterstitialAsync(cancellationTokenSource.Token);
-            var delayTask = UniTask.Delay(3000, cancellationToken: cancellationTokenSource.Token);
+            if (payload.Level.ShowAds)
+            {
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-            await UniTask.WhenAny(adTask, delayTask);
+                var adTask = _adsProvider.InterstitialAsync(cancellationTokenSource.Token);
 
-            cancellationTokenSource.Cancel();
+                var delayTask = UniTask.Delay(3000, cancellationToken: cancellationTokenSource.Token);
+
+                await UniTask.WhenAny(adTask, delayTask);
+
+                cancellationTokenSource.Cancel();
+            }
 
             var screen = await screenNavigator.PushScreen<LevelCompletedScreen>();
 

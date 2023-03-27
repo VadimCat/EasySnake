@@ -115,12 +115,12 @@ namespace Presenters
 
         private void HandleScoreUpdate(int score)
         {
-            _audioService.PlaySfxAsync(SoundNamesCollection.EatFood);
+            _audioService.PlaySfxAsync(SoundNamesCollection.EatFood).Forget();
 
             var pos = _positionProvider.GetPoint(Model.Snake[0]) +
                       new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
 
-            _gameScreen.ShowPointsTip(pos);
+            _gameScreen.ShowPointsTip(pos).Forget();
             _gameScreen.SetScore(score);
             HandleHighScoreUpdate(score);
         }
@@ -156,10 +156,10 @@ namespace Presenters
         {
             Dispose();
 
-            _audioService.PlaySfxAsync(SoundNamesCollection.SnakeCollision);
+            _audioService.PlaySfxAsync(SoundNamesCollection.SnakeCollision).Forget();
             _head.SwitchState(HeadState.Collision);
             await UniTask.Delay(1000);
-            _audioService.PlaySfxAsync(SoundNamesCollection.WinScreenShow);
+            _audioService.PlaySfxAsync(SoundNamesCollection.WinScreenShow).Forget();
 
             LevelCompleted?.Invoke();
 

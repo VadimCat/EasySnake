@@ -89,6 +89,8 @@ namespace Models
 
             _showAds = false;
 
+            Cooldown = new Cooldown(3, 3, 1, updateService);
+
             fieldPoints = new HashSet<Vector2Int>(size.x * size.y);
             snake = new() { new(size.x / 2, size.y / 2), new(size.x / 2 - 1, size.y / 2) };
 

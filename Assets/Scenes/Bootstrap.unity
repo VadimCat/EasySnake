@@ -309,6 +309,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e7409ca005a208646ad1c4a20bc03e1f, type: 3}
+    - target: {fileID: 3581070745182046588, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
+      propertyPath: devKey
+      value: haKRkaeFTz8bLJEdLPHj5S
+      objectReference: {fileID: 0}
     - target: {fileID: 3653260881436310959, guid: ebe0b4796b5ce1746809f6da5aae686e, type: 3}
       propertyPath: ApiKey
       value: 05a0e1b5-f68a-4115-a7d8-7e69756dd86c
